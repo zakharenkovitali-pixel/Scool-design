@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Школа Atelier · обучение дизайну интерьера</title>
+  <meta name="description" content="Онлайн-школа дизайна интерьера в Telegram: курсы для начинающих и практикующих, AI-инструменты, стажировка в студии.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+:root {
+  color-scheme: light;
+  --ink: #1a1b1d;
+  --muted: #6b6b6b;
+  --line: #e4dfd5;
+  --paper: #f7f4ee;
+  --paper-deep: #efeae0;
+  --accent: #8a6f4c;
+  --accent-soft: #b89876;
+  --serif: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(247, 244, 238, 0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding: 18px clamp(20px, 6vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav .logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav .logo em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 2px;
+  background: var(--ink);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: background 160ms ease;
+}
+
+.button:hover { background: #2c2d2f; }
+
+.button.outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.button.outline:hover { background: var(--ink); color: white; }
+
+.section-head {
+  max-width: 760px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 14px 0 12px;
+  font-weight: 500;
+}
+
+.section-head p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+footer {
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 64px clamp(20px, 6vw, 80px) 32px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--line);
+}
+
+footer h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: white;
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+footer p { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.65); }
+
+footer a { color: rgba(255,255,255,0.85); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.25); }
+
+footer .copyright {
+  grid-column: 1 / -1;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  footer { grid-template-columns: 1fr; }
+}
+
+    .school-hero { background: var(--ink); color: white; padding: 120px clamp(20px, 6vw, 80px) 96px; }
+    .school-hero .inner { max-width: 1080px; margin: 0 auto; }
+    .school-hero .eyebrow { color: var(--accent-soft); }
+    .school-hero h1 { font-family: var(--serif); font-size: clamp(48px, 6.5vw, 96px); line-height: 1; font-weight: 500; margin: 18px 0 24px; max-width: 880px; }
+    .school-hero h1 em { color: var(--accent-soft); font-style: italic; font-weight: 500; }
+    .school-hero p { color: rgba(255,255,255,0.75); font-size: 18px; line-height: 1.65; max-width: 660px; margin: 0; }
+    .school-hero .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 36px; }
+    .school-hero .button { background: white; color: var(--ink); }
+    .school-hero .button:hover { background: var(--paper-deep); }
+    .school-hero .button.outline { background: transparent; color: white; border-color: rgba(255,255,255,0.4); }
+    .school-hero .button.outline:hover { background: rgba(255,255,255,0.1); color: white; }
+
+    .courses-section { padding: 96px 0 120px; background: var(--paper-deep); border-bottom: 1px solid var(--line); }
+    .courses-grid { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    a.course-card { display: block; text-decoration: none; color: var(--ink); background: white; border: 1px solid var(--line); transition: transform 200ms ease, box-shadow 200ms ease; }
+    a.course-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px -28px rgba(28,29,31,0.32); }
+    .course-card .thumb { aspect-ratio: 4 / 3; background-size: cover; background-position: center; }
+    .course-card .body { padding: 24px 24px 28px; }
+    .course-card .badge { display: inline-block; background: var(--ink); color: white; padding: 4px 10px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .course-card h3 { font-family: var(--serif); font-size: 24px; margin: 14px 0 8px; font-weight: 500; line-height: 1.15; }
+    .course-card p { font-size: 14px; color: var(--muted); line-height: 1.55; margin: 0 0 14px; }
+    .course-card .meta { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--ink); border-top: 1px solid var(--line); padding-top: 14px; }
+    .course-card .meta .price { font-weight: 700; }
+
+    .why { padding: 96px clamp(20px, 6vw, 40px); max-width: 1080px; margin: 0 auto; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+    .why-grid .item { border-top: 2px solid var(--accent); padding-top: 18px; }
+    .why-grid h3 { font-family: var(--serif); font-size: 22px; font-weight: 500; margin: 0 0 8px; }
+    .why-grid p { font-size: 15px; color: var(--muted); line-height: 1.6; margin: 0; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="logo" href="/">Atelier <em>School</em></a>
+    <div class="nav-links">
+      <a href="/" >Студия</a>
+      <a href="/school" aria-current="page">Школа</a>
+      <a href="/crm">CRM</a>
+    </div>
+  </nav>
+  <section class="school-hero">
+    <div class="inner">
+      <div class="eyebrow">Atelier · School · Telegram-first</div>
+      <h1>Дизайн интерьера, который <em>учат</em> на реальных проектах</h1>
+      <p>Школа при студии Atelier: курсы для тех, кто меняет профессию, и для практикующих дизайнеров, которые хотят системный подход. Учимся в Telegram-канале и боте, лучшие выпускники проходят стажировку в студии.</p>
+      <div class="actions">
+        <a class="button" href="https://t.me/atelier_school_bot">Открыть бота школы</a>
+        <a class="button outline" href="#courses">Смотреть курсы</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses-section" id="courses">
+    <div class="section-head">
+      <div class="eyebrow">Программы</div>
+      <h2>Курсы школы</h2>
+      <p>От бесплатного мини-урока до интенсива по AI-инструментам и большой программы для практикующих.</p>
+    </div>
+    <div class="courses-grid">
+      <a class="course-card" href="/school/interior-base">
+        <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1800&q=80')"></div>
+        <div class="body">
+          <span class="badge">Для тех, кто меняет профессию</span>
+          <h3>База интерьера за 8 недель</h3>
+          <p>Новички без опыта в дизайне, желающие сменить профессию или сделать ремонт себе самостоятельно.</p>
+          <div class="meta">
+            <span>8 недель</span>
+            <span class="price">от 39 000 ₽ за поток</span>
+          </div>
+        </div>
+      </a>
+      <a class="course-card" href="/school/designer-pro">
+        <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1567016432779-094069958ea5?auto=format&fit=crop&w=1800&q=80')"></div>
+        <div class="body">
+          <span class="badge">Для практикующих дизайнеров</span>
+          <h3>Designer Pro · работа с клиентом</h3>
+          <p>Дизайнеры с базовыми навыками, которые хотят системно вести проекты и поднять чек.</p>
+          <div class="meta">
+            <span>12 недель</span>
+            <span class="price">от 89 000 ₽ за поток</span>
+          </div>
+        </div>
+      </a>
+      <a class="course-card" href="/school/ai-tools-intensive">
+        <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=1800&q=80')"></div>
+        <div class="body">
+          <span class="badge">Интенсив 3 недели</span>
+          <h3>AI-инструменты для дизайнера интерьера</h3>
+          <p>Дизайнеры, которые хотят встроить Midjourney, Krea, ChatGPT и Vercel в работу.</p>
+          <div class="meta">
+            <span>3 недели · вечерний формат</span>
+            <span class="price">от 24 000 ₽ за интенсив</span>
+          </div>
+        </div>
+      </a>
+      <a class="course-card" href="/school/free-mini">
+        <div class="thumb" style="background-image: url('https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1800&q=80')"></div>
+        <div class="body">
+          <span class="badge">Лид-магнит школы</span>
+          <h3>Бесплатный мини-урок: с чего начать</h3>
+          <p>Подписчики канала, которые ещё сомневаются.</p>
+          <div class="meta">
+            <span>1 час</span>
+            <span class="price">0 ₽</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="section-head">
+      <div class="eyebrow">Почему школа при студии</div>
+      <h2>Учим тому, что используем сами</h2>
+    </div>
+    <div class="why-grid">
+      <div class="item"><h3>Кейсы из практики</h3><p>Программа собирается из реальных проектов студии, с письменного разрешения клиентов. Никаких учебных задач «как у всех».</p></div>
+      <div class="item"><h3>Преподают практики</h3><p>Дизайнеры и менеджеры студии, у которых это основная работа, а не подработка между потоками.</p></div>
+      <div class="item"><h3>Ревью домашек 72 ч</h3><p>SLA на проверку: студент получает обратную связь за 72 часа. Без «через две недели посмотрю».</p></div>
+      <div class="item"><h3>Стажировка</h3><p>Выпускники с лучшими финальными проектами получают приглашение стажироваться в студии Atelier.</p></div>
+    </div>
+  </section>
+
+  <footer>
+  <div>
+    <h3>Atelier · Krasnodar</h3>
+    <p>Студия дизайна интерьера в Краснодаре. Концепция, 3D-визуализации, рабочая документация и авторский надзор. Стройку и материалы мы не продаём.</p>
+  </div>
+  <div>
+    <h3>Контакты</h3>
+    <p><a href="mailto:hello@atelier.kr">hello@atelier.kr</a></p>
+    <p><a href="tel:+79000000000">+7 900 000 00 00</a></p>
+    <p>Краснодар, ул. Красная, 00</p>
+  </div>
+  <div>
+    <h3>Соцсети</h3>
+    <p><a href="#">Telegram</a></p>
+    <p><a href="#">Instagram</a></p>
+    <p><a href="#">Behance</a></p>
+  </div>
+  <div class="copyright">© Atelier Krasnodar · Демонстрационный сайт многоагентной системы lesson_06</div>
+</footer>
+</body>
+</html>

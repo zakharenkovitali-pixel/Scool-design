@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier · Сборка Telegram-бота</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Inter", system-ui, sans-serif; background: #f7f4ee; color: #1a1b1d; -webkit-font-smoothing: antialiased; }
+    .topbar { background: white; border-bottom: 1px solid #e3e5e8; padding: 14px 24px; display: flex; gap: 16px; align-items: center; }
+    .topbar a { text-decoration: none; color: #1a1b1d; font-weight: 600; font-size: 14px; }
+    .topbar a::before { content: "← "; color: #8a6f4c; }
+    .topbar h1 { font-size: 16px; margin: 0; font-weight: 600; }
+    .topbar .badge { margin-left: auto; padding: 4px 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 2px; font-weight: 700; }
+    .topbar .badge--live { background: #ecfdf5; color: #065f46; }
+    .topbar .badge--dry { background: #fef3c7; color: #92400e; }
+
+    .hero { padding: 64px clamp(20px, 6vw, 80px) 40px; max-width: 1280px; margin: 0 auto; }
+    .hero .eyebrow { color: #8a6f4c; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 700; }
+    .hero h1 { font-family: "Cormorant Garamond", serif; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; margin: 14px 0 16px; font-weight: 500; }
+    .hero p { font-size: 17px; color: #6b7280; max-width: 720px; line-height: 1.6; margin: 0; }
+
+    .grid { max-width: 1280px; margin: 0 auto; padding: 0 clamp(20px, 6vw, 80px) 96px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+
+    .card { background: white; border: 1px solid #e3e5e8; border-radius: 6px; padding: 28px; }
+    .card h2 { font-family: "Cormorant Garamond", serif; font-size: 28px; margin: 0 0 18px; font-weight: 500; }
+
+    .checklist { list-style: none; margin: 0; padding: 0; }
+    .checklist li { padding: 12px 0; border-bottom: 1px solid #f1f2f4; display: grid; grid-template-columns: 28px 1fr; gap: 12px; align-items: start; }
+    .checklist li:last-child { border-bottom: none; }
+    .check { width: 22px; height: 22px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+    .check--done { background: #1f4f3a; color: white; }
+    .check--todo { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+    .checklist .item { font-weight: 600; font-size: 14px; }
+    .checklist .note { font-size: 13px; color: #6b7280; margin-top: 3px; }
+
+    .progress { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .progress-bar { flex: 1; height: 8px; background: #ebecef; border-radius: 4px; overflow: hidden; }
+    .progress-bar > span { display: block; height: 100%; background: linear-gradient(90deg, #8a6f4c, #b89876); }
+    .progress-text { font-size: 12px; color: #6b7280; font-weight: 600; letter-spacing: 0.04em; }
+
+    .flow { display: flex; flex-direction: column; gap: 0; align-items: stretch; }
+    .flow-step { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 16px; background: #fcfcfd; border: 1px solid #ebecef; border-radius: 6px; }
+    .flow-num { font-family: "Cormorant Garamond", serif; font-size: 24px; color: #8a6f4c; font-weight: 600; }
+    .flow-title { font-weight: 700; font-size: 14px; }
+    .flow-id { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px; color: #8a6f4c; margin-top: 2px; }
+    .flow-msg { margin-top: 8px; font-size: 13px; color: #4b5563; line-height: 1.55; }
+    .flow-exp { margin-top: 8px; font-size: 11px; color: #6b7280; letter-spacing: 0.04em; }
+    .flow-exp code { font-family: "JetBrains Mono", monospace; background: #f3f4f6; padding: 1px 6px; border-radius: 2px; font-size: 11px; }
+    .flow-arrow { display: block; text-align: center; color: #b89876; font-size: 22px; line-height: 1; padding: 6px 0; }
+
+    .dialog { background: #f0f4ff; padding: 24px; border-radius: 6px; max-height: 540px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+    .msg { display: flex; flex-direction: column; max-width: 86%; }
+    .msg--bot { align-self: flex-start; }
+    .msg--user { align-self: flex-end; align-items: flex-end; }
+    .msg-meta { font-size: 11px; color: #6b7280; padding: 0 4px 4px; letter-spacing: 0.04em; }
+    .msg-bubble { padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.5; }
+    .msg--bot .msg-bubble { background: white; border-top-left-radius: 4px; border: 1px solid #e3e5e8; }
+    .msg--user .msg-bubble { background: #2c8be0; color: white; border-top-right-radius: 4px; }
+
+    .config-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .config-table th, .config-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid #f1f2f4; }
+    .config-table th { background: #fcfcfd; font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b7280; }
+    .config-table code { font-family: "JetBrains Mono", monospace; font-size: 12px; color: #8a6f4c; }
+    .config-table .ok { color: #065f46; font-weight: 700; }
+    .config-table .pending { color: #92400e; font-weight: 700; }
+
+    pre.cmd { background: #1a1b1d; color: #d6cdb8; padding: 16px 18px; border-radius: 4px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12.5px; line-height: 1.65; overflow-x: auto; margin: 0; }
+    pre.cmd .comment { color: #6b7280; }
+    pre.cmd .prompt { color: #b89876; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a href="/">К сайту студии</a>
+    <h1>Atelier · Сборка Telegram-бота школы</h1>
+    <span class="badge badge--dry">● DRY-RUN</span>
+  </div>
+
+  <section class="hero">
+    <div class="eyebrow">Bot Console · собирается на ваших глазах</div>
+    <h1>Telegram-бот воронки школы</h1>
+    <p>Здесь видно, что уже готово, что осталось, и как сейчас выглядит сценарий бота. Чек-лист обновляется при каждом запуске <code>npm run build</code>. Источник состояний — <code>scripts/bot.mjs</code>, без дублирования.</p>
+  </section>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Состояния воронки</h2>
+      <div class="flow">
+        <div class="flow-step">
+        <div class="flow-num">01</div>
+        <div class="flow-body">
+          <div class="flow-title">Приветствие</div>
+          <div class="flow-id">welcome</div>
+          <div class="flow-msg">Здравствуйте! Это Atelier · School — школа дизайна интерьера при студии Atelier в Краснодаре.<br/>Здесь короткая 5-минутная анкета: я подберу подходящий формат обучения и пришлю бесплатный мини-урок.<br/>Готовы начать? Нажмите /start или напишите «да».</div>
+          <div class="flow-exp">ожидает: <code>/start</code>, <code>да</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <div class="flow-body">
+          <div class="flow-title">Вопрос 1 · уровень</div>
+          <div class="flow-id">level</div>
+          <div class="flow-msg">Какой у вас сейчас уровень?<br/>1) Совсем не дизайнер<br/>2) Делал(а) проекты для себя/друзей<br/>3) Практикующий дизайнер</div>
+          <div class="flow-exp">ожидает: <code>1</code>, <code>2</code>, <code>3</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <div class="flow-body">
+          <div class="flow-title">Вопрос 2 · цель</div>
+          <div class="flow-id">goal</div>
+          <div class="flow-msg">Какая основная цель?<br/>1) Сменить профессию<br/>2) Делать ремонт себе и не разочароваться<br/>3) Работать с клиентами и поднять чек<br/>4) Освоить AI-инструменты для рендеров</div>
+          <div class="flow-exp">ожидает: <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <div class="flow-body">
+          <div class="flow-title">Вопрос 3 · время</div>
+          <div class="flow-id">time</div>
+          <div class="flow-msg">Сколько часов в неделю готовы выделять?<br/>Введите цифру, например: 8</div>
+          <div class="flow-exp">ожидает: <code>int</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">05</div>
+        <div class="flow-body">
+          <div class="flow-title">Вопрос 4 · бюджет</div>
+          <div class="flow-id">budget</div>
+          <div class="flow-msg">Какой бюджет на обучение?<br/>1) До 30 000 ₽<br/>2) До 50 000 ₽<br/>3) До 100 000 ₽<br/>4) Не ограничен</div>
+          <div class="flow-exp">ожидает: <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">06</div>
+        <div class="flow-body">
+          <div class="flow-title">Вопрос 5 · город</div>
+          <div class="flow-id">city</div>
+          <div class="flow-msg">В каком городе вы находитесь? Это поможет с расписанием эфиров.</div>
+          <div class="flow-exp">ожидает: <code>text</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">07</div>
+        <div class="flow-body">
+          <div class="flow-title">Рекомендация</div>
+          <div class="flow-id">recommend</div>
+          <div class="flow-msg">Спасибо. По вашим ответам подобрал курс — отправлю карточку курса и ссылку на бесплатный мини-урок (видео + ДЗ).<br/>После урока — зову на 15-минутный созвон с куратором, чтобы обсудить тариф.</div>
+          
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">08</div>
+        <div class="flow-body">
+          <div class="flow-title">Бесплатный урок</div>
+          <div class="flow-id">free_lesson</div>
+          <div class="flow-msg">🎁 Видео-урок: «С чего начать дизайнеру интерьера»<br/>Ссылка: &lt;появится после загрузки в Vercel&gt;<br/>ДЗ: разобрать свою кухню за 30 минут по чек-листу.<br/>Когда готовы — нажмите /done.</div>
+          <div class="flow-exp">ожидает: <code>/done</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">09</div>
+        <div class="flow-body">
+          <div class="flow-title">Запрос на созвон</div>
+          <div class="flow-id">call_request</div>
+          <div class="flow-msg">Готов соединить с куратором.<br/>Пришлите удобное время для 15-минутного созвона (формат: «Пн 18:00»).</div>
+          <div class="flow-exp">ожидает: <code>text</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">10</div>
+        <div class="flow-body">
+          <div class="flow-title">Тариф</div>
+          <div class="flow-id">tariff</div>
+          <div class="flow-msg">Напоминаю варианты:<br/>• База интерьера за 8 недель — от 39 000 ₽<br/>• Designer Pro — от 89 000 ₽<br/>• AI-инструменты интенсив — от 24 000 ₽<br/>Какой тариф выбираете? Ответьте «база», «pro» или «ai».</div>
+          <div class="flow-exp">ожидает: <code>база</code>, <code>pro</code>, <code>ai</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">11</div>
+        <div class="flow-body">
+          <div class="flow-title">Оплата</div>
+          <div class="flow-id">payment</div>
+          <div class="flow-msg">Спасибо! Сейчас пришлю ссылку на оплату через ЮKassa.<br/>После оплаты автоматически добавлю в когорту и пришлю расписание.<br/>Если будут вопросы — напишите куратору @atelier_curator.</div>
+          <div class="flow-exp">ожидает: <code>paid</code></div>
+        </div>
+      </div><span class="flow-arrow">↓</span>
+      <div class="flow-step">
+        <div class="flow-num">12</div>
+        <div class="flow-body">
+          <div class="flow-title">Зачислен в когорту</div>
+          <div class="flow-id">enrolled</div>
+          <div class="flow-msg">✅ Готово. Вы в когорте.<br/>Завтра придёт приглашение в чат когорты и расписание ближайших уроков.<br/>Это последнее сообщение от бота-воронки. Дальше с вами работают cohort_manager_agent и куратор.</div>
+          
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:24px;">
+        <h2>Чек-лист сборки</h2>
+        <div class="progress">
+          <div class="progress-bar"><span style="width:44%"></span></div>
+          <span class="progress-text">4 / 9</span>
+        </div>
+        <ul class="checklist">
+          <li>
+            <div class="check check--done">✓</div>
+            <div>
+              <div class="item">Состав воронки (12 шагов)</div>
+              <div class="note">12 состояний описано в scripts/bot.mjs</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--done">✓</div>
+            <div>
+              <div class="item">DRY-RUN транскрипт</div>
+              <div class="note">Запуск `npm run bot` без токена → outputs/bot_runs/sample_session.md</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--done">✓</div>
+            <div>
+              <div class="item">Пример заполненной анкеты студента</div>
+              <div class="note">data/student_leads.json</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--done">✓</div>
+            <div>
+              <div class="item">.env.example с TELEGRAM_BOT_TOKEN</div>
+              <div class="note">Скопировать в .env и заполнить</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--todo"></div>
+            <div>
+              <div class="item">Реальное подключение к Telegram (grammy/telegraf)</div>
+              <div class="note">Подключить после получения токена в @BotFather</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--todo"></div>
+            <div>
+              <div class="item">Хранилище состояний студентов (Map → SQLite)</div>
+              <div class="note">Перенести из памяти в БД при росте</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--todo"></div>
+            <div>
+              <div class="item">Уведомление владельцу о новом лиде</div>
+              <div class="note">TELEGRAM_OWNER_CHAT_ID → push в личку</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--todo"></div>
+            <div>
+              <div class="item">Платёжная ссылка из ЮKassa / банка</div>
+              <div class="note">Связка с `payment_agent`</div>
+            </div>
+          </li>
+          <li>
+            <div class="check check--todo"></div>
+            <div>
+              <div class="item">Передача в cohort_manager_agent</div>
+              <div class="note">Запись лида в data/student_leads.json через CRM-агента</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <h2>Конфигурация</h2>
+        <table class="config-table">
+          <tr><th>Переменная</th><th>Статус</th></tr>
+          <tr><td><code>TELEGRAM_BOT_TOKEN</code></td><td class="pending">В .env пусто</td></tr>
+          <tr><td><code>TELEGRAM_CHANNEL_ID</code></td><td class="pending">Не задан</td></tr>
+          <tr><td><code>TELEGRAM_OWNER_CHAT_ID</code></td><td class="pending">Не задан</td></tr>
+          <tr><td><code>VERCEL_TOKEN</code></td><td class="pending">Используется CLI-логин</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Запуск</h2>
+        <pre class="cmd"><span class="comment"># 1. Скопировать пример переменных и заполнить токеном от @BotFather</span>
+<span class="prompt">$</span> cp .env.example .env
+
+<span class="comment"># 2. DRY-RUN (без реального бота): пишет транскрипт в outputs/bot_runs/sample_session.md</span>
+<span class="prompt">$</span> npm run bot
+
+<span class="comment"># 3. После того как TELEGRAM_BOT_TOKEN заполнен — runLive() поднимет реальный бот</span>
+<span class="prompt">$</span> npm run bot</pre>
+      </div>
+    </div>
+  </div>
+
+  <section style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,6vw,80px) 56px;">
+    <div class="card">
+      <h2>Отправка персональных КП клиентам</h2>
+      <p style="color:#6b7280;font-size:14px;margin:0 0 18px;">Скопируйте ссылку и отправьте клиенту в Telegram, WhatsApp, SMS или email. Когда клиент кликнет — бот узнает его, поприветствует по имени и пришлёт URL персонального КП на Vercel. Каждый клик дополнительно уведомляет владельца студии в личку.</p>
+      <table class="config-table">
+        <tr><th>Клиент</th><th>Объект</th><th>Deep-link</th><th>Прямой КП</th></tr>
+        <tr>
+          <td><strong>Юлия</strong> · <span style="color:#6b7280;">lead-001</span></td>
+          <td>3-комнатная квартира · Park Towers</td>
+          <td><code style="font-size:11px;">https://t.me/desind_school_vtg_bot?start=lead-001</code></td>
+          <td><a href="/offer/lead-001" target="_blank" rel="noopener">/offer/lead-001</a></td>
+        </tr>
+        <tr>
+          <td><strong>Карина</strong> · <span style="color:#6b7280;">lead-003</span></td>
+          <td>студия · Самолёт</td>
+          <td><code style="font-size:11px;">https://t.me/desind_school_vtg_bot?start=lead-003</code></td>
+          <td><a href="/offer/lead-003" target="_blank" rel="noopener">/offer/lead-003</a></td>
+        </tr>
+        <tr>
+          <td><strong>Артём</strong> · <span style="color:#6b7280;">lead-002</span></td>
+          <td>дом · Европея</td>
+          <td><code style="font-size:11px;">https://t.me/desind_school_vtg_bot?start=lead-002</code></td>
+          <td><a href="/offer/lead-002" target="_blank" rel="noopener">/offer/lead-002</a></td>
+        </tr>
+        <tr>
+          <td><strong>Игорь</strong> · <span style="color:#6b7280;">lead-004</span></td>
+          <td>коммерческое помещение, кофейня · —</td>
+          <td><code style="font-size:11px;">https://t.me/desind_school_vtg_bot?start=lead-004</code></td>
+          <td><a href="/offer/lead-004" target="_blank" rel="noopener">/offer/lead-004</a></td>
+        </tr>
+      </table>
+      <p style="color:#6b7280;font-size:12px;margin-top:14px;">Команда для владельца в боте: <code>/kp lead-001</code> — пришлёт ссылку на КП в текущий чат, без обращения по имени.</p>
+    </div>
+  </section>
+
+  <section style="max-width:1280px;margin:0 auto;padding:0 clamp(20px,6vw,80px) 96px;">
+    <div class="card">
+      <h2>Sample-диалог (DRY-RUN)</h2>
+      <p style="color:#6b7280;font-size:14px;margin:0 0 18px;">Как выглядит прохождение воронки от первого <code>/start</code> до зачисления в когорту. Это автогенерация из <code>FUNNEL_STATES</code> — обновляется при правке <code>scripts/bot.mjs</code>.</p>
+      <div class="dialog">
+        <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Здравствуйте! Это Atelier · School — школа дизайна интерьера при студии Atelier в Краснодаре.<br/>Здесь короткая 5-минутная анкета: я подберу подходящий формат обучения и пришлю бесплатный мини-урок.<br/>Готовы начать? Нажмите /start или напишите «да».</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">да</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Какой у вас сейчас уровень?<br/>1) Совсем не дизайнер<br/>2) Делал(а) проекты для себя/друзей<br/>3) Практикующий дизайнер</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">1</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Какая основная цель?<br/>1) Сменить профессию<br/>2) Делать ремонт себе и не разочароваться<br/>3) Работать с клиентами и поднять чек<br/>4) Освоить AI-инструменты для рендеров</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">1</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Сколько часов в неделю готовы выделять?<br/>Введите цифру, например: 8</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">10</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Какой бюджет на обучение?<br/>1) До 30 000 ₽<br/>2) До 50 000 ₽<br/>3) До 100 000 ₽<br/>4) Не ограничен</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">2</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">В каком городе вы находитесь? Это поможет с расписанием эфиров.</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">Краснодар</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Спасибо. По вашим ответам подобрал курс — отправлю карточку курса и ссылку на бесплатный мини-урок (видео + ДЗ).<br/>После урока — зову на 15-минутный созвон с куратором, чтобы обсудить тариф.</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">🎁 Видео-урок: «С чего начать дизайнеру интерьера»<br/>Ссылка: &lt;появится после загрузки в Vercel&gt;<br/>ДЗ: разобрать свою кухню за 30 минут по чек-листу.<br/>Когда готовы — нажмите /done.</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">next</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Готов соединить с куратором.<br/>Пришлите удобное время для 15-минутного созвона (формат: «Пн 18:00»).</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">/done</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Напоминаю варианты:<br/>• База интерьера за 8 недель — от 39 000 ₽<br/>• Designer Pro — от 89 000 ₽<br/>• AI-инструменты интенсив — от 24 000 ₽<br/>Какой тариф выбираете? Ответьте «база», «pro» или «ai».</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">Пн 19:00</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">Спасибо! Сейчас пришлю ссылку на оплату через ЮKassa.<br/>После оплаты автоматически добавлю в когорту и пришлю расписание.<br/>Если будут вопросы — напишите куратору @atelier_curator.</div></div>
+      <div class="msg msg--user"><div class="msg-meta">Студент</div><div class="msg-bubble">база</div></div>
+      <div class="msg msg--bot"><div class="msg-meta">@atelier_school_bot</div><div class="msg-bubble">✅ Готово. Вы в когорте.<br/>Завтра придёт приглашение в чат когорты и расписание ближайших уроков.<br/>Это последнее сообщение от бота-воронки. Дальше с вами работают cohort_manager_agent и куратор.</div></div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

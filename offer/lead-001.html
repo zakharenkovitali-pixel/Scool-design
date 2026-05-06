@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Персональное КП · Юлия · Atelier Krasnodar</title>
+  <meta name="description" content="Персональное предложение по дизайну интерьера для Юлия, Park Towers. Atelier Krasnodar.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+:root {
+  color-scheme: light;
+  --ink: #1a1b1d;
+  --muted: #6b6b6b;
+  --line: #e4dfd5;
+  --paper: #f7f4ee;
+  --paper-deep: #efeae0;
+  --accent: #8a6f4c;
+  --accent-soft: #b89876;
+  --serif: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(247, 244, 238, 0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding: 18px clamp(20px, 6vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav .logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav .logo em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 2px;
+  background: var(--ink);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: background 160ms ease;
+}
+
+.button:hover { background: #2c2d2f; }
+
+.button.outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.button.outline:hover { background: var(--ink); color: white; }
+
+.section-head {
+  max-width: 760px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 14px 0 12px;
+  font-weight: 500;
+}
+
+.section-head p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+footer {
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 64px clamp(20px, 6vw, 80px) 32px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--line);
+}
+
+footer h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: white;
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+footer p { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.65); }
+
+footer a { color: rgba(255,255,255,0.85); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.25); }
+
+footer .copyright {
+  grid-column: 1 / -1;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  footer { grid-template-columns: 1fr; }
+}
+
+    .offer-cover {
+      min-height: 86vh;
+      display: grid;
+      grid-template-columns: minmax(280px, 1.05fr) minmax(320px, 0.95fr);
+      border-bottom: 1px solid var(--line);
+    }
+    .offer-cover .copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(28px, 6vw, 88px); gap: 22px; }
+    .offer-cover .greet { font-family: var(--serif); font-size: 22px; color: var(--accent); font-style: italic; }
+    .offer-cover h1 { font-family: var(--serif); font-size: clamp(48px, 6.5vw, 96px); line-height: 0.98; margin: 0; font-weight: 500; max-width: 720px; }
+    .offer-cover h1 em { color: var(--accent); font-style: italic; font-weight: 500; }
+    .offer-cover p.lead { font-size: 18px; line-height: 1.65; color: var(--muted); max-width: 560px; margin: 0; }
+    .offer-cover .meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 6px 28px; font-size: 14px; }
+    .offer-cover .meta dt { color: var(--muted); }
+    .offer-cover .meta dd { margin: 0; color: var(--ink); font-weight: 600; }
+    .offer-cover .photo { background-image: linear-gradient(rgba(28,29,31,.05), rgba(28,29,31,.18)), url("https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1800&q=80"); background-size: cover; background-position: center; min-height: 460px; }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--paper-deep);
+      border-bottom: 1px solid var(--line);
+    }
+    .summary-strip .item { padding: 36px 24px; text-align: center; border-right: 1px solid var(--line); }
+    .summary-strip .item:last-child { border-right: none; }
+    .summary-strip .label { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+    .summary-strip .value { font-family: var(--serif); font-size: 32px; margin-top: 8px; line-height: 1.2; font-weight: 500; }
+
+    .composition { max-width: 1080px; margin: 0 auto; padding: 96px clamp(20px, 6vw, 60px); }
+    table.stages { width: 100%; border-collapse: collapse; }
+    table.stages td { padding: 22px 18px; vertical-align: top; border-bottom: 1px solid var(--line); }
+    table.stages tr:last-child td { border-bottom: 2px solid var(--ink); }
+    table.stages td.num { font-family: var(--serif); font-size: 28px; color: var(--accent); width: 70px; }
+    table.stages td.title strong { font-family: var(--serif); font-size: 22px; font-weight: 500; display: block; margin-bottom: 6px; }
+    table.stages td.title .desc { color: var(--muted); font-size: 14px; line-height: 1.55; max-width: 540px; }
+    table.stages td.dur { font-size: 14px; color: var(--muted); width: 140px; white-space: nowrap; }
+    table.stages td.price { font-family: var(--serif); font-size: 20px; text-align: right; width: 130px; font-weight: 500; }
+
+    table.stages tfoot td { background: var(--paper-deep); font-weight: 700; padding: 22px 18px; border: none; }
+    table.stages tfoot td.total { font-family: var(--serif); font-size: 28px; text-align: right; }
+
+    .timeline {
+      background: var(--paper-deep);
+      padding: 72px clamp(20px, 6vw, 60px);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .timeline-bar { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .timeline-bar .step { padding: 18px 14px; background: white; border: 1px solid var(--line); position: relative; }
+    .timeline-bar .step .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); margin-bottom: 8px; }
+    .timeline-bar .step .name { font-size: 13px; font-weight: 700; }
+    .timeline-bar .step .time { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    .why { max-width: 1040px; margin: 0 auto; padding: 96px clamp(20px, 6vw, 60px); }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; }
+    .why-grid .item { border-top: 2px solid var(--accent); padding-top: 18px; }
+    .why-grid h3 { font-family: var(--serif); font-size: 22px; font-weight: 500; margin: 0 0 8px; }
+    .why-grid p { font-size: 15px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    .agreement { max-width: 760px; margin: 0 auto; padding: 0 clamp(20px, 6vw, 60px) 80px; }
+    .agreement h3 { font-family: var(--serif); font-size: 28px; margin: 0 0 14px; font-weight: 500; }
+    .agreement ul { padding-left: 22px; color: var(--muted); line-height: 1.65; font-size: 15px; }
+    .agreement ul li { margin-bottom: 8px; }
+
+    .cta-banner {
+      background: var(--ink); color: white; padding: 80px clamp(20px, 6vw, 40px); text-align: center;
+    }
+    .cta-banner h2 { font-family: var(--serif); font-size: clamp(32px, 4vw, 48px); margin: 0 0 14px; font-weight: 500; }
+    .cta-banner p { color: rgba(255,255,255,0.7); max-width: 560px; margin: 0 auto 28px; line-height: 1.6; }
+    .cta-banner .button { background: white; color: var(--ink); }
+    .cta-banner .button:hover { background: var(--paper-deep); }
+    .cta-banner .actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-banner .button.outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4); }
+    .cta-banner .button.outline:hover { background: rgba(255,255,255,0.1); }
+
+    .signature { padding: 48px clamp(20px, 6vw, 60px); text-align: center; color: var(--muted); font-size: 14px; line-height: 1.6; }
+    .signature strong { color: var(--ink); display: block; margin-top: 6px; font-weight: 600; }
+
+    @media (max-width: 920px) {
+      .offer-cover { grid-template-columns: 1fr; }
+      .offer-cover .photo { order: -1; min-height: 280px; }
+      .summary-strip { grid-template-columns: 1fr; }
+      .summary-strip .item { border-right: none; border-bottom: 1px solid var(--line); }
+      .timeline-bar { grid-template-columns: 1fr 1fr; }
+      table.stages td.dur { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+  <a class="logo" href="/">Atelier <em>Krasnodar</em></a>
+  <div class="nav-links">
+    <a href="/#services">Студия</a>
+    <a href="/school">Школа</a>
+    <a href="/crm">CRM</a>
+    <a href="/bot">Bot</a>
+    <a href="/full-design-project">Полный проект</a>
+    <a href="/concept-only">Концепция</a>
+  </div>
+</nav>
+  <main>
+    <section class="offer-cover">
+      <div class="copy">
+        <div class="greet">Юлия,</div>
+        <div class="eyebrow">Персональное предложение · 2026-05-06</div>
+        <h1>Дизайн вашей квартиры в <em>Park Towers</em></h1>
+        <p class="lead">Спасибо за запрос. Мы собрали персональное предложение под ваш объект, стиль и сроки. Это рабочий черновик — корректируем в любой момент после звонка.</p>
+        <dl class="meta">
+          <dt>Объект</dt><dd>3-комнатная квартира, 96 м²</dd>
+          <dt>Адрес</dt><dd>Park Towers, Центральный</dd>
+          <dt>Стиль</dt><dd>современная классика</dd>
+          <dt>Срок</dt><dd>проект за 3 месяца</dd>
+          <dt>Бюджет на дизайн</dt><dd>до 380 тыс ₽ за проект</dd>
+        </dl>
+      </div>
+      <div class="photo" role="img" aria-label="Полный дизайн-проект квартиры"></div>
+    </section>
+
+    <section class="summary-strip">
+      <div class="item"><div class="label">Тариф</div><div class="value">2 800 ₽/м²</div></div>
+      <div class="item"><div class="label">Площадь</div><div class="value">96 м²</div></div>
+      <div class="item"><div class="label">Итого за дизайн</div><div class="value">268 800 ₽</div></div>
+    </section>
+
+    <section class="composition">
+      <div class="section-head" style="text-align:left;">
+        <div class="eyebrow">Состав дизайн-услуги</div>
+        <h2 style="text-align:left;">5 этапов с этапной оплатой</h2>
+        <p style="text-align:left;">Каждый этап завершается артефактом, который вы согласовываете. Без согласования следующий этап не запускается.</p>
+      </div>
+      <table class="stages">
+        <tr>
+      <td class="num">01</td>
+      <td class="title">
+        <strong>Бриф и обмеры</strong>
+        <div class="desc">Образ жизни семьи, привычки, бюджет, обмеры и план БТИ. Бесплатно при заключении договора.</div>
+      </td>
+      <td class="dur">1 неделя</td>
+      <td class="price">входит</td>
+    </tr>
+    <tr>
+      <td class="num">02</td>
+      <td class="title">
+        <strong>Концепция и мудборд</strong>
+        <div class="desc">Стилевое направление, палитра, материалы, расстановка мебели до старта 3D.</div>
+      </td>
+      <td class="dur">2 недели</td>
+      <td class="price">53 760 ₽</td>
+    </tr>
+    <tr>
+      <td class="num">03</td>
+      <td class="title">
+        <strong>3D-визуализации</strong>
+        <div class="desc">Реалистичные кадры ключевых помещений: гостиная, спальня, кухня, санузлы.</div>
+      </td>
+      <td class="dur">3–4 недели</td>
+      <td class="price">80 640 ₽</td>
+    </tr>
+    <tr>
+      <td class="num">04</td>
+      <td class="title">
+        <strong>Рабочая документация</strong>
+        <div class="desc">Полный комплект чертежей: планы, развёртки, узлы, спецификации, для исполнителя.</div>
+      </td>
+      <td class="dur">4–6 недель</td>
+      <td class="price">94 080 ₽</td>
+    </tr>
+    <tr>
+      <td class="num">05</td>
+      <td class="title">
+        <strong>Авторский надзор</strong>
+        <div class="desc">Регулярные выезды, проверка узлов, журнал отклонений, защита проекта на стройке.</div>
+      </td>
+      <td class="dur">по графику стройки</td>
+      <td class="price">40 320 ₽</td>
+    </tr>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td>Итого</td>
+            <td></td>
+            <td class="total">268 800 ₽</td>
+          </tr>
+        </tfoot>
+      </table>
+    </section>
+
+    <section class="timeline">
+      <div class="section-head">
+        <div class="eyebrow">Сроки</div>
+        <h2>Параллельно идём по 5 этапам · около 3 месяцев</h2>
+      </div>
+      <div class="timeline-bar">
+        <div class="step"><div class="dot"></div><div class="name">Бриф</div><div class="time">1 нед.</div></div>
+        <div class="step"><div class="dot"></div><div class="name">Концепция</div><div class="time">2 нед.</div></div>
+        <div class="step"><div class="dot"></div><div class="name">3D</div><div class="time">3–4 нед.</div></div>
+        <div class="step"><div class="dot"></div><div class="name">Рабочка</div><div class="time">4–6 нед.</div></div>
+        <div class="step"><div class="dot"></div><div class="name">Надзор</div><div class="time">по стройке</div></div>
+      </div>
+    </section>
+
+    <section class="why">
+      <div class="section-head">
+        <div class="eyebrow">Почему мы</div>
+        <h2>Студия, в которой проект и стройка не расходятся</h2>
+      </div>
+      <div class="why-grid">
+        <div class="item"><h3>Только дизайн</h3><p>Не продаём стройку и материалы — это убирает конфликт интересов. Вы платите только за качество проекта, а не за «накрутки» поставщиков.</p></div>
+        <div class="item"><h3>Этапная оплата</h3><p>Платите за факт сданного этапа. Если на любом этапе видите, что не подходит — останавливаем без штрафов.</p></div>
+        <div class="item"><h3>Авторский надзор</h3><p>Ездим на ваш объект и фиксируем каждое отклонение от проекта. Подрядчик не «придумывает на месте».</p></div>
+        <div class="item"><h3>Прозрачные документы</h3><p>Договор и этапы оплаты прозрачны. Передача авторских прав на проект включена.</p></div>
+      </div>
+    </section>
+
+    <section class="agreement">
+      <h3>Что входит в этот расчёт</h3>
+      <ul>
+        <li>5 этапов дизайн-услуги: бриф, концепция, 3D, рабочка, авторский надзор.</li>
+        <li>До 3 итераций правок в концепции и 2 — в 3D.</li>
+        <li>Подбор материалов и спецификации для исполнителя.</li>
+        <li>Передача всех файлов проекта в формате PDF и нативных исходниках.</li>
+      </ul>
+      <h3 style="margin-top:32px;">Что не входит и оговаривается отдельно</h3>
+      <ul>
+        <li>Стоимость работ подрядчика и материалов — это смета другого исполнителя, мы не считаем её.</li>
+        <li>Закупка мебели, света и сантехники — отдельный пакет «Комплектация».</li>
+        <li>Изменения проекта после согласования этапа — почасовая оплата.</li>
+      </ul>
+    </section>
+
+    <section class="cta-banner" id="next">
+      <h2>Готовы начать?</h2>
+      <p>Следующий шаг — 30-минутный звонок, чтобы зафиксировать стиль, дедлайны и подписать договор. Если что-то поправить в КП — скажите, обновим.</p>
+      <div class="actions">
+        <a class="button" href="mailto:hello@atelier.kr?subject=%D0%9A%D0%9F%20%C2%B7%20%D0%AE%D0%BB%D0%B8%D1%8F%20%C2%B7%20Park%20Towers">Подтвердить КП по почте</a>
+        <a class="button outline" href="https://t.me/desind_school_vtg_bot">Написать в Telegram</a>
+      </div>
+    </section>
+
+    <div class="signature">
+      Виталий Захаренко · главный дизайнер студии<br>
+      <strong>Atelier Krasnodar</strong>
+      <div style="margin-top:6px;">КП №lead-001 · подготовлено агентом personal_offer_agent</div>
+    </div>
+  </main>
+  <footer>
+  <div>
+    <h3>Atelier · Krasnodar</h3>
+    <p>Студия дизайна интерьера в Краснодаре. Концепция, 3D-визуализации, рабочая документация и авторский надзор. Стройку и материалы мы не продаём.</p>
+  </div>
+  <div>
+    <h3>Контакты</h3>
+    <p><a href="mailto:hello@atelier.kr">hello@atelier.kr</a></p>
+    <p><a href="tel:+79000000000">+7 900 000 00 00</a></p>
+    <p>Краснодар, ул. Красная, 00</p>
+  </div>
+  <div>
+    <h3>Соцсети</h3>
+    <p><a href="#">Telegram</a></p>
+    <p><a href="#">Instagram</a></p>
+    <p><a href="#">Behance</a></p>
+  </div>
+  <div class="copyright">© Atelier Krasnodar · Демонстрационный сайт многоагентной системы lesson_06</div>
+</footer>
+</body>
+</html>

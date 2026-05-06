@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Урок 02 · Эргономика и планировка · Школа Atelier</title>
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+:root {
+  color-scheme: light;
+  --ink: #1a1b1d;
+  --muted: #6b6b6b;
+  --line: #e4dfd5;
+  --paper: #f7f4ee;
+  --paper-deep: #efeae0;
+  --accent: #8a6f4c;
+  --accent-soft: #b89876;
+  --serif: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(247, 244, 238, 0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding: 18px clamp(20px, 6vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav .logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav .logo em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 2px;
+  background: var(--ink);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: background 160ms ease;
+}
+
+.button:hover { background: #2c2d2f; }
+
+.button.outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.button.outline:hover { background: var(--ink); color: white; }
+
+.section-head {
+  max-width: 760px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 14px 0 12px;
+  font-weight: 500;
+}
+
+.section-head p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+footer {
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 64px clamp(20px, 6vw, 80px) 32px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--line);
+}
+
+footer h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: white;
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+footer p { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.65); }
+
+footer a { color: rgba(255,255,255,0.85); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.25); }
+
+footer .copyright {
+  grid-column: 1 / -1;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  footer { grid-template-columns: 1fr; }
+}
+
+    .lesson-cover { padding: 80px clamp(20px, 6vw, 80px) 56px; max-width: 1080px; margin: 0 auto; }
+    .lesson-cover .crumb { color: var(--muted); font-size: 13px; margin-bottom: 24px; }
+    .lesson-cover .crumb a { color: var(--accent); text-decoration: none; }
+    .lesson-cover .crumb a:hover { text-decoration: underline; }
+    .lesson-cover .num { color: var(--accent); font-family: var(--serif); font-size: 92px; line-height: 0.9; font-weight: 500; }
+    .lesson-cover h1 { font-family: var(--serif); font-size: clamp(40px, 5vw, 72px); line-height: 1.05; margin: 12px 0 18px; max-width: 820px; font-weight: 500; }
+    .lesson-cover .meta { display: flex; gap: 22px; flex-wrap: wrap; color: var(--muted); font-size: 14px; }
+    .lesson-cover .objective { background: var(--paper-deep); border-left: 3px solid var(--accent); padding: 18px 22px; margin-top: 28px; max-width: 720px; line-height: 1.6; font-size: 16px; }
+    .lesson-cover .objective strong { display: block; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+
+    .lesson-section { max-width: 1080px; margin: 0 auto; padding: 56px clamp(20px, 6vw, 80px); }
+    .lesson-section h2 { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 40px); margin: 0 0 18px; font-weight: 500; }
+    .lesson-section p { font-size: 17px; line-height: 1.7; color: var(--ink); max-width: 760px; margin: 0 0 14px; }
+    .lesson-section ol, .lesson-section ul { font-size: 16px; line-height: 1.7; color: var(--ink); padding-left: 24px; max-width: 760px; }
+    .lesson-section ol li, .lesson-section ul li { margin-bottom: 10px; }
+    .lesson-section.dark { background: var(--ink); color: white; }
+    .lesson-section.dark h2 { color: white; }
+    .lesson-section.dark p, .lesson-section.dark li { color: rgba(255,255,255,0.85); }
+    .lesson-section.dark ol li::marker { color: var(--accent-soft); }
+
+    .assignment-block { background: #fffbeb; border: 1px solid #fcd34d; padding: 28px clamp(20px, 4vw, 32px); border-radius: 4px; max-width: 760px; }
+    .assignment-block h3 { font-family: var(--serif); font-size: 24px; margin: 0 0 12px; font-weight: 500; }
+    .assignment-block p { font-size: 16px; line-height: 1.65; color: #4b5563; margin: 0; }
+    .assignment-block .label { display: inline-block; background: #d97706; color: white; padding: 3px 10px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+
+    .checklist { list-style: none; padding-left: 0; max-width: 720px; }
+    .checklist li { padding: 14px 0 14px 36px; position: relative; border-bottom: 1px solid var(--line); font-size: 16px; line-height: 1.55; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: "☐"; position: absolute; left: 0; top: 12px; font-size: 22px; color: var(--accent); }
+
+    .lesson-nav { padding: 56px clamp(20px, 6vw, 80px); border-top: 1px solid var(--line); background: var(--paper-deep); }
+    .lesson-nav-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: center; }
+    .lesson-nav-grid .progress { text-align: center; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; }
+    .lesson-nav-grid .progress strong { font-family: var(--serif); font-size: 34px; color: var(--ink); display: block; font-weight: 500; }
+    .lesson-nav-grid a { font-family: var(--serif); font-size: 22px; text-decoration: none; color: var(--ink); display: block; }
+    .lesson-nav-grid .prev { text-align: left; }
+    .lesson-nav-grid .next { text-align: right; }
+    .lesson-nav-grid a span { display: block; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; font-family: var(--sans); font-weight: 700; }
+    .lesson-nav-grid .disabled { color: var(--muted); cursor: not-allowed; }
+    .lesson-nav-grid .disabled span { color: var(--muted); }
+
+    .complete-cta { padding: 64px clamp(20px, 6vw, 40px); text-align: center; background: var(--ink); color: white; }
+    .complete-cta h3 { font-family: var(--serif); font-size: 30px; margin: 0 0 14px; font-weight: 500; }
+    .complete-cta p { color: rgba(255,255,255,0.7); max-width: 540px; margin: 0 auto 24px; line-height: 1.6; }
+    .complete-cta code { background: rgba(255,255,255,0.12); padding: 6px 14px; border-radius: 4px; font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 18px; color: white; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+  <a class="logo" href="/">Atelier <em>Krasnodar</em></a>
+  <div class="nav-links">
+    <a href="/#services">Студия</a>
+    <a href="/school">Школа</a>
+    <a href="/crm">CRM</a>
+    <a href="/bot">Bot</a>
+    <a href="/full-design-project">Полный проект</a>
+    <a href="/concept-only">Концепция</a>
+  </div>
+</nav>
+  <main>
+    <section class="lesson-cover">
+      <div class="crumb"><a href="/school">Школа</a> · <a href="/school/interior-base">База интерьера за 8 недель</a> · Урок 02</div>
+      <div class="num">02</div>
+      <h1>Эргономика и планировка</h1>
+      <div class="meta">
+        <span>⏱ 45 минут</span>
+        <span>📚 2 из 8</span>
+        <span>🎓 База интерьера за 8 недель</span>
+      </div>
+      <div class="objective">
+        <strong>Цель урока</strong>
+        Делать планировку, в которой не приходится ходить боком и тянуться через полкомнаты.
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2>Зачем это знать</h2>
+      <p>Планировка — это самое опасное, что можно делать «на глаз». Малейшая ошибка → переделка стен на стройке. Учимся опираться на нормы и сценарии.</p>
+    </section>
+
+    <section class="lesson-section dark">
+      <h2>Ключевые точки</h2>
+      <ol>
+        <li>Минимальные проходы и зоны: кухня, санузел, спальня, гардероб.</li>
+        <li>Сценарии: будни / гости / праздники / дети / уборка.</li>
+        <li>Зоны хранения: 1.5 м³ хранения на жильца — где их взять.</li>
+        <li>Перегородки: где можно снести, где нельзя, как это узнать заранее.</li>
+      </ol>
+    </section>
+
+    <section class="lesson-section">
+      <h2>Материалы</h2>
+      <ul>
+        <li>Чек-лист эргономики · 12 пунктов.</li>
+        <li>Видео-разбор кейса: квартира 64 м² за 3 итерации.</li>
+      </ul>
+    </section>
+
+    <section class="lesson-section">
+      <div class="assignment-block">
+        <span class="label">Домашнее задание</span>
+        <h3>Что нужно сделать</h3>
+        <p>Сделайте две версии планировки одного и того же помещения: «как было» и «как должно быть». Защитите изменения сценариями.</p>
+      </div>
+    </section>
+
+    <section class="lesson-section">
+      <h2>Чек-лист самопроверки</h2>
+      <ul class="checklist">
+        <li>Знаю минимальные проходы для всех ключевых зон.</li>
+        <li>В моей планировке есть зоны хранения для всех жителей.</li>
+        <li>Я понимаю, какие стены несущие, и не предлагаю их сносить.</li>
+      </ul>
+    </section>
+
+    <section class="complete-cta">
+      <h3>Готово?</h3>
+      <p>Вернитесь в чат с ботом школы и отправьте команду, чтобы открыть следующий урок.</p>
+      <code>/done lesson-02</code>
+    </section>
+
+    <nav class="lesson-nav">
+      <div class="lesson-nav-grid">
+        <a class="prev" href="/school/interior-base/lesson-01"><span>← Урок 01</span>Стиль и образ жизни клиента</a>
+        <div class="progress"><strong>2/8</strong>прогресс по курсу</div>
+        <a class="next" href="/school/interior-base/lesson-03"><span>Урок 03 →</span>Цвет, свет, материалы</a>
+      </div>
+    </nav>
+  </main>
+  <footer>
+  <div>
+    <h3>Atelier · Krasnodar</h3>
+    <p>Студия дизайна интерьера в Краснодаре. Концепция, 3D-визуализации, рабочая документация и авторский надзор. Стройку и материалы мы не продаём.</p>
+  </div>
+  <div>
+    <h3>Контакты</h3>
+    <p><a href="mailto:hello@atelier.kr">hello@atelier.kr</a></p>
+    <p><a href="tel:+79000000000">+7 900 000 00 00</a></p>
+    <p>Краснодар, ул. Красная, 00</p>
+  </div>
+  <div>
+    <h3>Соцсети</h3>
+    <p><a href="#">Telegram</a></p>
+    <p><a href="#">Instagram</a></p>
+    <p><a href="#">Behance</a></p>
+  </div>
+  <div class="copyright">© Atelier Krasnodar · Демонстрационный сайт многоагентной системы lesson_06</div>
+</footer>
+</body>
+</html>

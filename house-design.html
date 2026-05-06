@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Дизайн загородного дома · Atelier Krasnodar</title>
+  <meta name="description" content="Комплексный дизайн дома: планировка, концепция, 3D, рабочая документация, комплектация.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+:root {
+  color-scheme: light;
+  --ink: #1a1b1d;
+  --muted: #6b6b6b;
+  --line: #e4dfd5;
+  --paper: #f7f4ee;
+  --paper-deep: #efeae0;
+  --accent: #8a6f4c;
+  --accent-soft: #b89876;
+  --serif: "Cormorant Garamond", "Playfair Display", "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--paper);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(247, 244, 238, 0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding: 18px clamp(20px, 6vw, 80px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav .logo {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.nav .logo em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-links a:hover { color: var(--ink); }
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 28px;
+  border-radius: 2px;
+  background: var(--ink);
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: background 160ms ease;
+}
+
+.button:hover { background: #2c2d2f; }
+
+.button.outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.button.outline:hover { background: var(--ink); color: white; }
+
+.section-head {
+  max-width: 760px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+
+.section-head h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 52px);
+  line-height: 1.1;
+  margin: 14px 0 12px;
+  font-weight: 500;
+}
+
+.section-head p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+footer {
+  background: var(--ink);
+  color: rgba(255, 255, 255, 0.75);
+  padding: 64px clamp(20px, 6vw, 80px) 32px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  border-top: 1px solid var(--line);
+}
+
+footer h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: white;
+  margin: 0 0 14px;
+  font-weight: 500;
+}
+
+footer p { margin: 0 0 8px; font-size: 14px; line-height: 1.6; color: rgba(255,255,255,0.65); }
+
+footer a { color: rgba(255,255,255,0.85); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.25); }
+
+footer .copyright {
+  grid-column: 1 / -1;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .nav-links { display: none; }
+  footer { grid-template-columns: 1fr; }
+}
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.95fr) minmax(320px, 1.05fr);
+      min-height: 78vh;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero .copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 6vw, 88px);
+      gap: 24px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(44px, 6.5vw, 88px);
+      line-height: 1;
+      margin: 0;
+      max-width: 760px;
+      font-weight: 500;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); font-weight: 500; }
+    .hero p { margin: 0; font-size: 18px; line-height: 1.65; color: var(--muted); max-width: 600px; }
+    .hero .offer {
+      font-size: 19px;
+      color: var(--ink);
+      max-width: 600px;
+      border-left: 2px solid var(--accent);
+      padding-left: 18px;
+    }
+    .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .hero .note { color: var(--muted); font-size: 13px; max-width: 360px; line-height: 1.5; }
+    .hero .photo {
+      background-image: linear-gradient(rgba(28,29,31,.04), rgba(28,29,31,.16)), url("https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1800&q=80");
+      background-size: cover;
+      background-position: center;
+      min-height: 480px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: var(--paper-deep);
+      border-bottom: 1px solid var(--line);
+    }
+    .stats .item {
+      padding: 48px 24px;
+      text-align: center;
+      border-right: 1px solid var(--line);
+    }
+    .stats .item:last-child { border-right: none; }
+    .stats .value {
+      font-family: var(--serif);
+      font-size: clamp(36px, 4vw, 56px);
+      line-height: 1;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .stats .label { margin-top: 10px; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; }
+
+    .pricing-line {
+      text-align: center;
+      padding: 32px 24px;
+      border-bottom: 1px solid var(--line);
+    }
+    .pricing-line .small { color: var(--muted); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .pricing-line .big {
+      display: block;
+      font-family: var(--serif);
+      font-size: clamp(28px, 3.5vw, 40px);
+      margin-top: 6px;
+    }
+
+    .process {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 96px clamp(20px, 6vw, 80px);
+    }
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+    }
+    .process-grid .step .num {
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 500;
+      color: var(--accent-soft);
+      line-height: 1;
+    }
+    .process-grid .step h3 {
+      font-family: var(--serif);
+      font-size: 24px;
+      margin: 18px 0 8px;
+      font-weight: 500;
+    }
+    .process-grid .step p { font-size: 15px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+    .portfolio {
+      background: var(--paper-deep);
+      padding: 96px clamp(20px, 6vw, 80px);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .portfolio-grid {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .portfolio-card {
+      background: white;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .portfolio-card .img {
+      aspect-ratio: 4 / 3;
+      background-size: cover;
+      background-position: center;
+    }
+    .portfolio-card .caption {
+      padding: 18px 22px;
+      font-size: 14px;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .testimonial {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 96px clamp(20px, 6vw, 40px);
+      text-align: center;
+    }
+    .testimonial blockquote {
+      font-family: var(--serif);
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.4;
+      margin: 0;
+      color: var(--ink);
+      font-weight: 500;
+      font-style: italic;
+    }
+    .testimonial blockquote::before { content: "\201C"; color: var(--accent); margin-right: 2px; }
+    .testimonial blockquote::after { content: "\201D"; color: var(--accent); margin-left: 2px; }
+    .testimonial cite {
+      display: block;
+      margin-top: 24px;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    .faq {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 6vw, 40px) 96px;
+    }
+    .faq details {
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+    }
+    .faq details:last-of-type { border-bottom: 1px solid var(--line); }
+    .faq summary {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 500;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; font-size: 28px; color: var(--accent); transition: transform 200ms ease; line-height: 1; }
+    .faq details[open] summary::after { content: "−"; }
+    .faq details p { margin: 14px 0 0; color: var(--muted); line-height: 1.7; font-size: 16px; }
+
+    .cta-banner {
+      background: var(--ink);
+      color: white;
+      padding: 80px clamp(20px, 6vw, 40px);
+      text-align: center;
+    }
+    .cta-banner h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 48px);
+      margin: 0 0 14px;
+      font-weight: 500;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-banner p {
+      max-width: 600px;
+      margin: 0 auto 32px;
+      color: rgba(255,255,255,0.7);
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .cta-banner .button {
+      background: white;
+      color: var(--ink);
+    }
+    .cta-banner .button:hover { background: var(--paper-deep); }
+
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero .photo { order: -1; min-height: 340px; }
+      .stats { grid-template-columns: 1fr; }
+      .stats .item { border-right: none; border-bottom: 1px solid var(--line); }
+      .stats .item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+  <a class="logo" href="/">Atelier <em>Krasnodar</em></a>
+  <div class="nav-links">
+    <a href="/#services">Студия</a>
+    <a href="/school">Школа</a>
+    <a href="/crm">CRM</a>
+    <a href="/bot">Bot</a>
+    <a href="/full-design-project">Полный проект</a>
+    <a href="/concept-only">Концепция</a>
+  </div>
+</nav>
+  <main>
+    <section class="hero">
+      <div class="copy">
+        <div class="eyebrow">Семья строит дом и хочет дизайн с учётом инженерии, освещения и комплектации.</div>
+        <h1>Дизайн загородного дома</h1>
+        <p>Дом — это не квартира: ошибки на этапе дизайна стоят в разы дороже и видны только при заселении.</p>
+        <p class="offer">Комплексный дизайн дома: планировка, концепция, 3D, рабочая документация, комплектация.</p>
+        <div class="actions">
+          <a class="button" href="#contact">Обсудить дом</a>
+          <span class="note">Ответ с планом следующего шага в течение 48 часов</span>
+        </div>
+      </div>
+      <div class="photo" role="img" aria-label="Дизайн загородного дома"></div>
+    </section>
+
+    <section class="stats">
+      <div class="item"><div class="value">20+</div><div class="label">загородных проектов</div></div>
+      <div class="item"><div class="value">150–600 м²</div><div class="label">рабочий диапазон</div></div>
+      <div class="item"><div class="value">4–5 мес.</div><div class="label">средний срок проекта</div></div>
+    </section>
+
+    <section class="pricing-line">
+      <span class="small">Стоимость дизайн-услуги</span>
+      <span class="big">от 3 500 ₽ за м² · этапная оплата</span>
+    </section>
+
+    <section class="process">
+      <div class="section-head">
+        <div class="eyebrow">Этапы работы</div>
+        <h2>Прозрачный процесс от брифа до сдачи</h2>
+        <p>Каждый этап завершается артефактом, который вы можете показать подрядчику или внести правки до того, как мы пойдём дальше.</p>
+      </div>
+      <div class="process-grid">
+        <div class="step">
+          <div class="num">01</div>
+          <h3>Бриф и осмотр</h3>
+          <p>Изучаем участок, инженерию, посадку дома и образ жизни семьи.</p>
+        </div>
+        <div class="step">
+          <div class="num">02</div>
+          <h3>Планировка и зонирование</h3>
+          <p>Сценарии для семьи, гостей, технических зон и террас.</p>
+        </div>
+        <div class="step">
+          <div class="num">03</div>
+          <h3>Концепция и 3D</h3>
+          <p>Стилевое направление и реалистичные кадры по этажам.</p>
+        </div>
+        <div class="step">
+          <div class="num">04</div>
+          <h3>Рабочая документация</h3>
+          <p>Чертежи, узлы, спецификации, комплектация.</p>
+        </div>
+        <div class="step">
+          <div class="num">05</div>
+          <h3>Авторский надзор</h3>
+          <p>Контроль реализации до финального заселения.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="portfolio">
+      <div class="section-head">
+        <div class="eyebrow">Из портфолио</div>
+        <h2>Как это выглядит в готовом проекте</h2>
+      </div>
+      <div class="portfolio-grid">
+        <div class="portfolio-card">
+          <div class="img" style="background-image: url('https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="caption">Дом 220 м² · тёплый минимализм</div>
+        </div>
+        <div class="portfolio-card">
+          <div class="img" style="background-image: url('https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="caption">Кухня-гостиная с панорамой</div>
+        </div>
+        <div class="portfolio-card">
+          <div class="img" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80')"></div>
+          <div class="caption">Главный санузел · травертин</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonial">
+      <blockquote>Дом проектировали параллельно со стройкой. Дизайнеры предусмотрели разводку света и розеток так, что переделок на финише не было.</blockquote>
+      <cite>Артём Л., Немецкая деревня</cite>
+    </section>
+
+    <section class="faq">
+      <div class="section-head">
+        <div class="eyebrow">Частые вопросы</div>
+        <h2>Что обычно спрашивают</h2>
+      </div>
+      <details>
+        <summary>Работаете ли с архитектурой или только с интерьером?</summary>
+        <p>С готовым проектом дома или на этапе посадки. Архитектуру не делаем, но координируем дизайн с архитектором.</p>
+      </details>
+      <details>
+        <summary>Включена ли комплектация?</summary>
+        <p>Да. Подбираем мебель, свет, сантехнику, отделочные материалы.</p>
+      </details>
+      <details>
+        <summary>Можно ли разбить оплату на этапы?</summary>
+        <p>Да, оплата привязана к этапам: концепция → 3D → рабочка → надзор.</p>
+      </details>
+    </section>
+
+    <section class="cta-banner" id="contact">
+      <h2>Обсудить дом</h2>
+      <p>Оставьте контакт — обсудим ваш объект и пришлём вилку стоимости и этапов в течение 48 часов.</p>
+      <a class="button" href="mailto:hello@atelier.kr?subject=%D0%94%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%20%D0%B7%D0%B0%D0%B3%D0%BE%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%B4%D0%BE%D0%BC%D0%B0">Написать на почту</a>
+    </section>
+  </main>
+  <footer>
+  <div>
+    <h3>Atelier · Krasnodar</h3>
+    <p>Студия дизайна интерьера в Краснодаре. Концепция, 3D-визуализации, рабочая документация и авторский надзор. Стройку и материалы мы не продаём.</p>
+  </div>
+  <div>
+    <h3>Контакты</h3>
+    <p><a href="mailto:hello@atelier.kr">hello@atelier.kr</a></p>
+    <p><a href="tel:+79000000000">+7 900 000 00 00</a></p>
+    <p>Краснодар, ул. Красная, 00</p>
+  </div>
+  <div>
+    <h3>Соцсети</h3>
+    <p><a href="#">Telegram</a></p>
+    <p><a href="#">Instagram</a></p>
+    <p><a href="#">Behance</a></p>
+  </div>
+  <div class="copyright">© Atelier Krasnodar · Демонстрационный сайт многоагентной системы lesson_06</div>
+</footer>
+</body>
+</html>

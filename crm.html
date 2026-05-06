@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier · CRM (демо в стиле YouGile)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f5f7;
+      color: #1a1b1d;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .topbar {
+      background: white;
+      border-bottom: 1px solid #e3e5e8;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar .home {
+      text-decoration: none;
+      color: #1a1b1d;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-size: 14px;
+    }
+
+    .topbar .home::before { content: "← "; color: #8a6f4c; }
+
+    .topbar h1 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a1b1d;
+    }
+
+    .topbar h1 em { font-style: normal; color: #6b7280; font-weight: 500; margin-left: 8px; font-size: 14px; }
+
+    .topbar .meta {
+      margin-left: auto;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    .legend {
+      padding: 14px 24px;
+      background: #fcfcfd;
+      border-bottom: 1px solid #e3e5e8;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      font-size: 12px;
+      color: #4b5563;
+    }
+    .legend strong { color: #1a1b1d; font-weight: 600; }
+
+    .board {
+      display: flex;
+      gap: 14px;
+      padding: 22px;
+      overflow-x: auto;
+      min-height: calc(100vh - 110px);
+      align-items: flex-start;
+    }
+
+    .col {
+      flex: 0 0 280px;
+      background: #ebecef;
+      border-radius: 8px;
+      padding: 8px;
+      max-height: calc(100vh - 154px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .col-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px 10px;
+    }
+
+    .col-title { font-size: 13px; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: #374151; }
+    .col-count {
+      background: rgba(0,0,0,0.08);
+      color: #374151;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 12px;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    .col-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      padding-bottom: 8px;
+    }
+
+    .col-empty {
+      color: #9ca3af;
+      font-size: 12px;
+      padding: 14px 8px;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .card {
+      background: white;
+      border-radius: 6px;
+      padding: 12px 12px 10px;
+      box-shadow: 0 1px 2px rgba(9, 30, 66, 0.08);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: box-shadow 120ms ease, border-color 120ms ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 14px rgba(9, 30, 66, 0.12);
+      border-color: #d1d5db;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #6b7280;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+
+    .card-id { font-family: ui-monospace, "SF Mono", monospace; }
+
+    .card-score {
+      background: #1a1b1d;
+      color: white;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 10px;
+      letter-spacing: 0;
+    }
+
+    .card-title {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .card-subtitle {
+      margin: 0 0 10px;
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    .card-stickers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .sticker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .sticker--hot { background: #fee2e2; color: #b91c1c; }
+    .sticker--warm { background: #fef3c7; color: #b45309; }
+    .sticker--cold { background: #dbeafe; color: #1e40af; }
+    .sticker--reject { background: #e5e7eb; color: #4b5563; }
+    .sticker--urgent { background: #fce7f3; color: #be185d; }
+    .sticker--gap { background: #fef3c7; color: #92400e; border: 1px dashed #d97706; }
+    .sticker--commerce { background: #ede9fe; color: #5b21b6; }
+    .sticker--house { background: #d1fae5; color: #065f46; }
+    .sticker--priority { background: #1a1b1d; color: white; }
+    .sticker--school { background: #1f4f3a; color: white; }
+    .sticker--lesson { background: #ecfdf5; color: #065f46; }
+    .sticker--newbie { background: #e0e7ff; color: #3730a3; }
+    .sticker--pro { background: #ddd6fe; color: #5b21b6; }
+    .sticker--alumni { background: #fef9c3; color: #854d0e; }
+
+    .card-risks {
+      font-size: 11px;
+      color: #92400e;
+      background: #fffbeb;
+      border-left: 2px solid #d97706;
+      padding: 6px 8px;
+      margin-bottom: 8px;
+      border-radius: 2px;
+      line-height: 1.4;
+    }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .card-link {
+      display: inline-block;
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #1f4f3a;
+      text-decoration: none;
+      background: #ecfdf5;
+      padding: 5px 9px;
+      border-radius: 3px;
+      transition: background 120ms ease;
+    }
+
+    .card-link:hover { background: #d1fae5; }
+
+    .card-link--tg {
+      background: #e0f2fe;
+      color: #0c4a6e;
+    }
+    .card-link--tg:hover { background: #bae6fd; }
+    .card-link--tg::before { content: "✈ "; }
+
+    .card-foot {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #f3f4f6;
+    }
+
+    .avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8a6f4c, #b89876);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 0;
+      flex-shrink: 0;
+    }
+
+    .card-sla {
+      font-size: 11px;
+      color: #6b7280;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 720px) {
+      .board { padding: 12px; gap: 10px; }
+      .col { flex: 0 0 260px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <a class="home" href="/">К сайту студии</a>
+    <h1>Atelier · CRM <em>демо-доска в стиле YouGile</em></h1>
+    <div class="meta">Сгенерировано 2026-05-06 · агенты crm_pipeline_agent + cohort_manager_agent</div>
+  </div>
+  <div class="legend">
+    <strong>Студия:</strong>
+    <span class="sticker sticker--hot">HOT</span>
+    <span class="sticker sticker--warm">WARM</span>
+    <span class="sticker sticker--cold">COLD</span>
+    <span class="sticker sticker--priority">ПРИОРИТЕТ</span>
+    <span class="sticker sticker--urgent">СРОЧНО</span>
+    <span class="sticker sticker--gap">БЮДЖЕТ ?</span>
+    <span class="sticker sticker--commerce">КОММЕРЦИЯ</span>
+    <span class="sticker sticker--house">ДОМ</span>
+    <span style="margin-left:18px;"></span>
+    <strong>Школа:</strong>
+    <span class="sticker sticker--school">ШКОЛА</span>
+    <span class="sticker sticker--lesson">БЕСПЛ. УРОК ✓</span>
+    <span class="sticker sticker--newbie">НОВИЧОК</span>
+    <span class="sticker sticker--pro">PRO</span>
+    <span class="sticker sticker--alumni">ВЫПУСКНИК</span>
+  </div>
+  <div style="padding:14px 24px;background:#fafbfc;border-bottom:1px solid #e3e5e8;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#374151;">🏛 Воронка студии — дизайн-проекты</div>
+  <div class="board">
+    <section class="col" data-stage="Новый лид">
+      <header class="col-head">
+        <span class="col-title">Новый лид</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+    <section class="col" data-stage="Квалификация">
+      <header class="col-head">
+        <span class="col-title">Квалификация</span>
+        <span class="col-count">1</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="lead-004">
+      <header class="card-head">
+        <span class="card-id">lead-004</span>
+        <span class="card-score">78</span>
+      </header>
+      <h3 class="card-title">Игорь</h3>
+      <p class="card-subtitle">коммерческое помещение, кофейня · 58 м² · —</p>
+      <div class="card-stickers"><span class="sticker sticker--warm">WARM</span><span class="sticker sticker--gap">БЮДЖЕТ ?</span><span class="sticker sticker--commerce">КОММЕРЦИЯ</span></div>
+      <div class="card-risks">⚠️ Бюджет на дизайн не зафиксирован — `ТРЕБУЕТ УТОЧНЕНИЯ` до подготовки договора.</div>
+      <div class="card-actions">
+        <a class="card-link" href="/offer/lead-004" target="_blank" rel="noopener">Открыть КП</a>
+        <a class="card-link card-link--tg" href="https://t.me/desind_school_vtg_bot?start=lead-004" target="_blank" rel="noopener">Отправить в Telegram</a>
+      </div>
+      <footer class="card-foot">
+        <div class="avatar" title="outreach_assistant_agent">OA</div>
+        <span class="card-sla">48 ч на ручной ответ</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="КП отправлено">
+      <header class="col-head">
+        <span class="col-title">КП отправлено</span>
+        <span class="col-count">3</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="lead-001">
+      <header class="card-head">
+        <span class="card-id">lead-001</span>
+        <span class="card-score">98</span>
+      </header>
+      <h3 class="card-title">Юлия</h3>
+      <p class="card-subtitle">3-комнатная квартира · 96 м² · Park Towers</p>
+      <div class="card-stickers"><span class="sticker sticker--hot">HOT</span><span class="sticker sticker--priority">ПРИОРИТЕТ</span></div>
+      
+      <div class="card-actions">
+        <a class="card-link" href="/offer/lead-001" target="_blank" rel="noopener">Открыть КП</a>
+        <a class="card-link card-link--tg" href="https://t.me/desind_school_vtg_bot?start=lead-001" target="_blank" rel="noopener">Отправить в Telegram</a>
+      </div>
+      <footer class="card-foot">
+        <div class="avatar" title="personal_offer_agent">PO</div>
+        <span class="card-sla">72 ч на встречу/созвон</span>
+      </footer>
+    </article>
+        <article class="card" data-id="lead-003">
+      <header class="card-head">
+        <span class="card-id">lead-003</span>
+        <span class="card-score">98</span>
+      </header>
+      <h3 class="card-title">Карина</h3>
+      <p class="card-subtitle">студия · 32 м² · Самолёт</p>
+      <div class="card-stickers"><span class="sticker sticker--hot">HOT</span><span class="sticker sticker--urgent">СРОЧНО</span><span class="sticker sticker--priority">ПРИОРИТЕТ</span></div>
+      <div class="card-risks">⚠️ Срочный срок — заранее подсветить, что концепция не быстрее 14 дней.</div>
+      <div class="card-actions">
+        <a class="card-link" href="/offer/lead-003" target="_blank" rel="noopener">Открыть КП</a>
+        <a class="card-link card-link--tg" href="https://t.me/desind_school_vtg_bot?start=lead-003" target="_blank" rel="noopener">Отправить в Telegram</a>
+      </div>
+      <footer class="card-foot">
+        <div class="avatar" title="personal_offer_agent">PO</div>
+        <span class="card-sla">72 ч на встречу/созвон</span>
+      </footer>
+    </article>
+        <article class="card" data-id="lead-002">
+      <header class="card-head">
+        <span class="card-id">lead-002</span>
+        <span class="card-score">86</span>
+      </header>
+      <h3 class="card-title">Артём</h3>
+      <p class="card-subtitle">дом · 165 м² · Европея</p>
+      <div class="card-stickers"><span class="sticker sticker--hot">HOT</span><span class="sticker sticker--gap">БЮДЖЕТ ?</span><span class="sticker sticker--house">ДОМ</span></div>
+      <div class="card-risks">⚠️ Бюджет на дизайн не зафиксирован — `ТРЕБУЕТ УТОЧНЕНИЯ` до подготовки договора.</div>
+      <div class="card-actions">
+        <a class="card-link" href="/offer/lead-002" target="_blank" rel="noopener">Открыть КП</a>
+        <a class="card-link card-link--tg" href="https://t.me/desind_school_vtg_bot?start=lead-002" target="_blank" rel="noopener">Отправить в Telegram</a>
+      </div>
+      <footer class="card-foot">
+        <div class="avatar" title="personal_offer_agent">PO</div>
+        <span class="card-sla">72 ч на встречу/созвон</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="Бриф собран">
+      <header class="col-head">
+        <span class="col-title">Бриф собран</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+    <section class="col" data-stage="Договор подписан">
+      <header class="col-head">
+        <span class="col-title">Договор подписан</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+    <section class="col" data-stage="Концепция">
+      <header class="col-head">
+        <span class="col-title">Концепция</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+    <section class="col" data-stage="3D-визуализации">
+      <header class="col-head">
+        <span class="col-title">3D-визуализации</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+    <section class="col" data-stage="Рабочая документация">
+      <header class="col-head">
+        <span class="col-title">Рабочая документация</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+    <section class="col" data-stage="Авторский надзор">
+      <header class="col-head">
+        <span class="col-title">Авторский надзор</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+    <section class="col" data-stage="Закрыто">
+      <header class="col-head">
+        <span class="col-title">Закрыто</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+  </div>
+  <div style="padding:14px 24px;background:#fafbfc;border-top:1px solid #e3e5e8;border-bottom:1px solid #e3e5e8;font-size:13px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#374151;">🎓 Воронка школы — обучение и стажировка</div>
+  <div class="board">
+    <section class="col" data-stage="Подписчик канала">
+      <header class="col-head">
+        <span class="col-title">Подписчик канала</span>
+        <span class="col-count">1</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="student-003">
+      <header class="card-head">
+        <span class="card-id">student-003</span>
+        <span class="card-score" style="background:#8a6f4c;">5 ч/нед</span>
+      </header>
+      <h3 class="card-title">Елена</h3>
+      <p class="card-subtitle">Москва · архитектор</p>
+      <div class="card-stickers"><span class="sticker sticker--school">ШКОЛА</span></div>
+      <p class="card-subtitle" style="margin-top:0;font-size:11px;">Курс: ai-tools-intensive</p>
+      <footer class="card-foot">
+        <div class="avatar" title="tg_content_agent" style="background:linear-gradient(135deg,#1f4f3a,#3a7058);">TC</div>
+        <span class="card-sla">след. пост по календарю</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="Бесплатный урок пройден">
+      <header class="col-head">
+        <span class="col-title">Бесплатный урок пройден</span>
+        <span class="col-count">1</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="student-001">
+      <header class="card-head">
+        <span class="card-id">student-001</span>
+        <span class="card-score" style="background:#8a6f4c;">10 ч/нед</span>
+      </header>
+      <h3 class="card-title">Анна</h3>
+      <p class="card-subtitle">Краснодар · маркетолог</p>
+      <div class="card-stickers"><span class="sticker sticker--school">ШКОЛА</span><span class="sticker sticker--lesson">БЕСПЛ. УРОК ✓</span></div>
+      <p class="card-subtitle" style="margin-top:0;font-size:11px;">Курс: interior-base</p>
+      <footer class="card-foot">
+        <div class="avatar" title="tg_funnel_bot_agent" style="background:linear-gradient(135deg,#1f4f3a,#3a7058);">TF</div>
+        <span class="card-sla">24 ч на персональную рекомендацию</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="Тариф выбран">
+      <header class="col-head">
+        <span class="col-title">Тариф выбран</span>
+        <span class="col-count">1</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="student-002">
+      <header class="card-head">
+        <span class="card-id">student-002</span>
+        <span class="card-score" style="background:#8a6f4c;">8 ч/нед</span>
+      </header>
+      <h3 class="card-title">Дмитрий</h3>
+      <p class="card-subtitle">Санкт-Петербург · дизайнер интерьера, 2 года опыта</p>
+      <div class="card-stickers"><span class="sticker sticker--school">ШКОЛА</span><span class="sticker sticker--lesson">БЕСПЛ. УРОК ✓</span><span class="sticker sticker--pro">PRO</span></div>
+      <p class="card-subtitle" style="margin-top:0;font-size:11px;">Курс: designer-pro</p>
+      <footer class="card-foot">
+        <div class="avatar" title="tg_funnel_bot_agent" style="background:linear-gradient(135deg,#1f4f3a,#3a7058);">TF</div>
+        <span class="card-sla">48 ч на оплату или созвон</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="Оплачено">
+      <header class="col-head">
+        <span class="col-title">Оплачено</span>
+        <span class="col-count">1</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="student-004">
+      <header class="card-head">
+        <span class="card-id">student-004</span>
+        <span class="card-score" style="background:#8a6f4c;">15 ч/нед</span>
+      </header>
+      <h3 class="card-title">Игорь</h3>
+      <p class="card-subtitle">Краснодар · студент</p>
+      <div class="card-stickers"><span class="sticker sticker--school">ШКОЛА</span><span class="sticker sticker--lesson">БЕСПЛ. УРОК ✓</span><span class="sticker sticker--newbie">СТУДЕНТ</span></div>
+      <p class="card-subtitle" style="margin-top:0;font-size:11px;">Курс: interior-base</p>
+      <footer class="card-foot">
+        <div class="avatar" title="cohort_manager_agent" style="background:linear-gradient(135deg,#1f4f3a,#3a7058);">CM</div>
+        <span class="card-sla">до старта когорты</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="Учится">
+      <header class="col-head">
+        <span class="col-title">Учится</span>
+        <span class="col-count">1</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="student-005">
+      <header class="card-head">
+        <span class="card-id">student-005</span>
+        <span class="card-score" style="background:#8a6f4c;">12 ч/нед</span>
+      </header>
+      <h3 class="card-title">Мария</h3>
+      <p class="card-subtitle">Краснодар · дизайнер интерьера, 5 лет</p>
+      <div class="card-stickers"><span class="sticker sticker--school">ШКОЛА</span><span class="sticker sticker--lesson">БЕСПЛ. УРОК ✓</span><span class="sticker sticker--pro">PRO</span></div>
+      <p class="card-subtitle" style="margin-top:0;font-size:11px;">Курс: interior-base</p>
+      <footer class="card-foot">
+        <div class="avatar" title="homework_review_agent" style="background:linear-gradient(135deg,#1f4f3a,#3a7058);">HR</div>
+        <span class="card-sla">ревью ДЗ за 72 ч</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="Выпустился">
+      <header class="col-head">
+        <span class="col-title">Выпустился</span>
+        <span class="col-count">1</span>
+      </header>
+      <div class="col-body">
+        <article class="card" data-id="student-006">
+      <header class="card-head">
+        <span class="card-id">student-006</span>
+        <span class="card-score" style="background:#8a6f4c;">20 ч/нед</span>
+      </header>
+      <h3 class="card-title">Артур</h3>
+      <p class="card-subtitle">Краснодар · выпускник школы</p>
+      <div class="card-stickers"><span class="sticker sticker--school">ШКОЛА</span><span class="sticker sticker--lesson">БЕСПЛ. УРОК ✓</span><span class="sticker sticker--newbie">ВЫПУСКНИК ШКОЛЫ</span><span class="sticker sticker--alumni">ВЫПУСКНИК</span></div>
+      <p class="card-subtitle" style="margin-top:0;font-size:11px;">Курс: interior-base</p>
+      <footer class="card-foot">
+        <div class="avatar" title="alumni_agent" style="background:linear-gradient(135deg,#1f4f3a,#3a7058);">AA</div>
+        <span class="card-sla">30 дней до follow-up</span>
+      </footer>
+    </article>
+      </div>
+    </section>
+    <section class="col" data-stage="Стажировка/преподаватель">
+      <header class="col-head">
+        <span class="col-title">Стажировка/преподаватель</span>
+        <span class="col-count">0</span>
+      </header>
+      <div class="col-body">
+        <div class="col-empty">пусто</div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
