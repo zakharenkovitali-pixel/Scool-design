@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Briefing · База интерьера за 8 недель · Atelier School</title>
+  <meta name="description" content="Briefing document для клиента: курс База интерьера за 8 недель, программа из 8 модулей.">
+  <meta name="robots" content="noindex">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;400;500;600;700&display=swap">
+  <style>
+    :root {
+      --ink: #1a1b1d;
+      --muted: #5b5e63;
+      --line: #d6d2c8;
+      --paper: #fbf9f5;
+      --accent: #8a6f4c;
+      --serif: "Cormorant Garamond", "Times New Roman", serif;
+      --sans: "Inter", system-ui, -apple-system, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background: #ece8e0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .nav-bar {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(251,249,245,0.94);
+      backdrop-filter: saturate(180%) blur(12px);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 32px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px;
+    }
+    .nav-bar a { text-decoration: none; color: var(--ink); }
+    .nav-bar a:hover { color: var(--accent); }
+    .nav-bar .toc { display: flex; gap: 14px; flex-wrap: wrap; }
+    .nav-bar .toc a { color: var(--muted); }
+    .nav-bar .print { font-weight: 600; padding: 6px 12px; border: 1px solid var(--ink); border-radius: 2px; }
+    @media (max-width: 760px) { .nav-bar .toc { display: none; } }
+
+    .page {
+      width: 880px;
+      max-width: calc(100vw - 32px);
+      min-height: 1180px;
+      margin: 32px auto;
+      background: var(--paper);
+      padding: 80px 88px;
+      box-shadow: 0 14px 40px -16px rgba(28,29,31,0.18);
+      position: relative;
+      page-break-after: always;
+    }
+    @media (max-width: 720px) { .page { padding: 56px 32px; min-height: auto; } }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 56px;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .page-num { font-family: var(--serif); font-size: 16px; letter-spacing: 0; color: var(--muted); }
+
+    .page-footer {
+      position: absolute;
+      bottom: 32px;
+      left: 88px;
+      right: 88px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 720px) { .page-footer { position: static; margin-top: 48px; left: auto; right: auto; padding-top: 14px; border-top: 1px solid var(--line); } }
+
+    h1.cover {
+      font-family: var(--serif);
+      font-size: clamp(54px, 7vw, 92px);
+      line-height: 0.96;
+      margin: 32px 0 24px;
+      font-weight: 500;
+    }
+    h1.cover em { color: var(--accent); font-style: italic; font-weight: 500; }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(34px, 4.5vw, 52px);
+      line-height: 1.05;
+      margin: 0 0 28px;
+      font-weight: 500;
+      max-width: 620px;
+    }
+    h2 em { color: var(--accent); font-style: italic; font-weight: 500; }
+
+    h3 {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 500;
+      margin: 0 0 12px;
+      line-height: 1.2;
+    }
+
+    p { font-size: 17px; line-height: 1.72; color: var(--ink); margin: 0 0 16px; max-width: 640px; }
+    p.lead { font-size: 19px; line-height: 1.65; color: var(--ink); max-width: 640px; }
+    p.muted { color: var(--muted); }
+
+    .pull-quote {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--ink);
+      border-left: 3px solid var(--accent);
+      padding: 18px 0 18px 28px;
+      margin: 28px 0;
+      max-width: 640px;
+    }
+
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin: 48px 0 0; }
+    .stats-row .item { padding: 24px 0; border-top: 2px solid var(--ink); }
+    .stats-row .v { font-family: var(--serif); font-size: 48px; line-height: 1; font-weight: 500; }
+    .stats-row .l { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+
+    .meta-block {
+      margin-top: 48px;
+      padding: 24px 28px;
+      background: white;
+      border: 1px solid var(--line);
+    }
+    .meta-block dl { margin: 0; display: grid; grid-template-columns: 200px 1fr; gap: 14px 24px; font-size: 14px; }
+    .meta-block dt { color: var(--muted); letter-spacing: 0.04em; }
+    .meta-block dd { margin: 0; font-weight: 600; }
+
+    ol.fancy { list-style: none; counter-reset: f; padding: 0; margin: 24px 0 0; }
+    ol.fancy li { counter-increment: f; padding: 14px 0 14px 56px; border-top: 1px solid var(--line); position: relative; font-size: 16px; line-height: 1.55; }
+    ol.fancy li:last-child { border-bottom: 1px solid var(--line); }
+    ol.fancy li::before { content: counter(f, decimal-leading-zero); position: absolute; left: 0; top: 14px; font-family: var(--serif); font-size: 22px; color: var(--accent); font-weight: 500; }
+
+    ul.checks { list-style: none; padding: 0; margin: 24px 0 0; }
+    ul.checks li { padding: 10px 0 10px 32px; position: relative; font-size: 16px; line-height: 1.55; }
+    ul.checks li::before { content: "✓"; position: absolute; left: 0; top: 8px; color: var(--accent); font-weight: 700; }
+
+    ul.warns { list-style: none; padding: 0; margin: 24px 0 0; }
+    ul.warns li { padding: 10px 0 10px 32px; position: relative; font-size: 16px; line-height: 1.55; color: var(--muted); }
+    ul.warns li::before { content: "—"; position: absolute; left: 0; top: 9px; color: var(--accent); }
+
+    .module {
+      padding: 22px 0;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 60px 1fr 80px;
+      gap: 20px;
+      align-items: start;
+    }
+    .module:last-of-type { border-bottom: 1px solid var(--line); }
+    .module .num { font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--accent); font-weight: 500; }
+    .module .body h4 { font-family: var(--serif); font-size: 22px; margin: 0 0 6px; font-weight: 500; }
+    .module .body p { font-size: 14px; line-height: 1.55; color: var(--muted); margin: 0 0 8px; max-width: none; }
+    .module .body .keys { font-size: 13px; color: var(--muted); padding-left: 0; list-style: none; margin: 0; }
+    .module .body .keys li { padding: 2px 0 2px 14px; position: relative; }
+    .module .body .keys li::before { content: "·"; position: absolute; left: 0; }
+    .module .dur { font-size: 12px; color: var(--muted); text-align: right; padding-top: 8px; }
+    .module .dur strong { display: block; font-family: var(--serif); font-size: 22px; color: var(--ink); font-weight: 500; }
+
+    .price-card {
+      background: var(--ink);
+      color: white;
+      padding: 40px;
+      margin-top: 32px;
+    }
+    .price-card .price {
+      font-family: var(--serif);
+      font-size: 56px;
+      line-height: 1;
+      font-weight: 500;
+    }
+    .price-card .meta {
+      color: rgba(255,255,255,0.65);
+      font-size: 13px;
+      margin-top: 12px;
+      letter-spacing: 0.06em;
+    }
+    .price-card .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .price-card .features div { font-size: 14px; line-height: 1.5; padding-left: 22px; position: relative; color: rgba(255,255,255,0.85); }
+    .price-card .features div::before { content: "✓"; position: absolute; left: 0; color: white; font-weight: 700; }
+
+    .cta-end {
+      padding: 40px;
+      background: var(--ink);
+      color: white;
+      text-align: center;
+      margin-top: 32px;
+    }
+    .cta-end h3 { color: white; margin-bottom: 12px; }
+    .cta-end p { color: rgba(255,255,255,0.7); margin: 0 auto 24px; max-width: 460px; }
+    .cta-end a {
+      display: inline-block;
+      padding: 14px 28px;
+      background: white;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .timeline .week {
+      background: white;
+      padding: 16px 14px;
+      border: 1px solid var(--line);
+    }
+    .timeline .week .w { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+    .timeline .week .t { font-family: var(--serif); font-size: 16px; margin-top: 6px; line-height: 1.3; }
+    @media (max-width: 720px) { .timeline { grid-template-columns: 1fr 1fr; } }
+
+    @media print {
+      body { background: white; }
+      .nav-bar { display: none; }
+      .page { box-shadow: none; margin: 0; padding: 60px 70px; min-height: 1140px; max-width: none; width: auto; page-break-after: always; }
+      .page-footer { position: static; padding-top: 14px; border-top: 1px solid var(--line); margin-top: 48px; left: auto; right: auto; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="nav-bar">
+    <a href="/school/interior-base">← Atelier School</a>
+    <div class="toc">
+      <a href="#p1">01 Cover</a>
+      <a href="#p2">02 О школе</a>
+      <a href="#p3">03 Аудитория</a>
+      <a href="#p4">04 Результат</a>
+      <a href="#p5">05 Программа</a>
+      <a href="#p6">06 Формат</a>
+      <a href="#p7">07 Сроки</a>
+      <a href="#p8">08 Стоимость</a>
+      <a href="#p9">09 Защита</a>
+      <a href="#p10">10 Дальше</a>
+    </div>
+    <a href="javascript:window.print()" class="print">Печать / PDF</a>
+  </div>
+
+  <article class="page" id="p1">
+    <header class="page-header"><span>Briefing · Для тех, кто меняет профессию</span><span class="page-num">01 / 10</span></header>
+    <p class="muted" style="margin: 0; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;">Atelier · School · Krasnodar</p>
+    <h1 class="cover">База интерьера за 8 недель<br><em>для клиента</em></h1>
+    <p class="lead">Новички без опыта в дизайне, желающие сменить профессию или сделать ремонт себе самостоятельно.</p>
+    <p class="lead" style="margin-top: 24px; max-width: 580px;">Этот документ — полный брифинг для будущего студента или партнёра студии: что мы учим, в каком формате, кто ведёт, сколько стоит и какой результат вы получите на выходе.</p>
+    <div class="stats-row">
+      <div class="item"><div class="v">8</div><div class="l">модулей</div></div>
+      <div class="item"><div class="v">7ч</div><div class="l">видео и практики</div></div>
+      <div class="item"><div class="v">8</div><div class="l">недель</div></div>
+    </div>
+    <div class="meta-block">
+      <dl>
+        <dt>Студия</dt><dd>Atelier · Краснодар, основана 2017</dd>
+        <dt>Старт ближайшего потока</dt><dd>По запросу, через мини-бриф в боте</dd>
+        <dt>Формат</dt><dd>Telegram-канал + чат когорты + личное ревью</dd>
+        <dt>Документ подготовил</dt><dd>Виталий Захаренко, главный дизайнер</dd>
+      </dl>
+    </div>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>2026-05-08</span></footer>
+  </article>
+
+  <article class="page" id="p2">
+    <header class="page-header"><span>О школе</span><span class="page-num">02 / 10</span></header>
+    <h2>Школа, которая <em>выросла из практики студии</em></h2>
+    <p class="lead">Atelier — действующая дизайн-студия в Краснодаре, работает с 2017 года. Студия не продаёт стройку и материалы — мы продаём только дизайн-услугу. Это убирает конфликт интересов: клиент платит за качество проекта, а не за «накрутки» поставщиков.</p>
+    <p>Школа выросла из этой практики. Программа курсов собирается из реальных проектов студии — с письменного разрешения клиентов. Преподают не «приглашённые эксперты», а сами дизайнеры студии, для которых это основная работа.</p>
+    <div class="pull-quote">«Учим тому, что используем сами. Программа курса „База интерьера“ обновляется между потоками на основе кейсов студии и обратной связи студентов.»</div>
+    <h3 style="margin-top: 32px;">Что отличает Atelier · School от типичного онлайн-курса</h3>
+    <ul class="checks">
+      <li>Программа из реальных проектов, а не пересказов учебников.</li>
+      <li>Преподают практикующие дизайнеры, у которых это ежедневная работа.</li>
+      <li>SLA на проверку домашек — 72 часа. Без «через две недели посмотрю».</li>
+      <li>Финальная защита перед комиссией студии — реальная оценка готовности к клиентам.</li>
+      <li>Лучшие выпускники получают приглашение на стажировку в Atelier.</li>
+      <li>Возврат денег в течение 7 дней с момента оплаты, без вопросов.</li>
+    </ul>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>02 · О школе</span></footer>
+  </article>
+
+  <article class="page" id="p3">
+    <header class="page-header"><span>Аудитория</span><span class="page-num">03 / 10</span></header>
+    <h2>Кому <em>подойдёт</em> курс</h2>
+    <p class="lead">Новички без опыта в дизайне, желающие сменить профессию или сделать ремонт себе самостоятельно.</p>
+    <h3 style="margin-top: 36px;">Подходит, если узнаёте себя</h3>
+    <ul class="checks">
+      <li>Хотите сменить профессию и понимаете, что нужна системная подготовка.</li>
+      <li>Делаете ремонт себе и больше не хотите принимать дизайн-решения «на бегу».</li>
+      <li>Уже пробовали учиться по бесплатным урокам, но в голове каша.</li>
+      <li>Готовы выделять минимум 10 часов в неделю на обучение и практику.</li>
+      <li>Хотите получить артефакт — реальный проект в портфолио, а не сертификат на стенке.</li>
+    </ul>
+    <h3 style="margin-top: 36px;">Не подходит</h3>
+    <ul class="warns">
+      <li>Если ищете «волшебный курс за выходные» — таких в дизайне нет.</li>
+      <li>Если не готовы делать домашки и принимать критику преподавателя.</li>
+      <li>Если ожидаете гарантированного трудоустройства — мы открыто говорим, что стажировка только для лучших, а не всех.</li>
+    </ul>
+    <h3 style="margin-top: 36px;">Что важно знать заранее</h3>
+    <p>Никакого технического бэкграунда не требуется. Если умеете пользоваться компьютером — этого достаточно. SketchUp, Figma и V-Ray мы изучаем с нуля, лицензии для студентов бесплатные.</p>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>03 · Аудитория</span></footer>
+  </article>
+
+  <article class="page" id="p4">
+    <header class="page-header"><span>Результат курса</span><span class="page-num">04 / 10</span></header>
+    <h2>На выходе у вас будет <em>не сертификат</em>,<br>а реальный проект</h2>
+    <p class="lead">Готовый дизайн-проект собственной квартиры или модельной планировки в портфолио</p>
+    <h3 style="margin-top: 36px;">Конкретно вы получите</h3>
+    <ol class="fancy">
+      <li><strong>Готовый дизайн-проект</strong> собственной квартиры или модельной планировки — то, что можно показать клиенту или родителям.</li>
+      <li><strong>Бриф, концепцию и мудборд</strong>, оформленные так, как принимает любая профессиональная студия.</li>
+      <li><strong>3D-визуализации</strong> ключевых помещений, сделанные в SketchUp + V-Ray и AI-инструментах.</li>
+      <li><strong>Рабочую документацию</strong> на 4 листа — чертежи, развёртки, узлы, спецификации.</li>
+      <li><strong>План авторского надзора</strong> — график выездов, журнал отклонений, формат отчётности.</li>
+      <li><strong>Доступ к закрытому чату когорты</strong> — связь с одногруппниками и преподавателем после курса.</li>
+      <li><strong>Письменное ревью</strong> финального проекта от комиссии студии.</li>
+      <li><strong>Шанс на стажировку</strong> в действующей студии Atelier.</li>
+    </ol>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>04 · Результат</span></footer>
+  </article>
+
+  <article class="page" id="p5">
+    <header class="page-header"><span>Программа курса</span><span class="page-num">05 / 10</span></header>
+    <h2>8 модулей <em>с практикой</em><br>и проверкой каждого</h2>
+    <p class="lead">Каждый модуль завершается артефактом, который вы добавляете в финальный проект. Преподаватель проверяет домашку за 72 часа.</p>
+    <div style="margin-top: 32px;">
+      <div class="module">
+        <div class="num">01</div>
+        <div class="body">
+          <h4>Стиль и образ жизни клиента</h4>
+          <p>Научиться переводить запрос клиента в стилевое направление и проверочные вопросы.</p>
+          <ul class="keys">
+            <li>Триада «образ жизни → сценарий комнаты → стилевое направление».</li>
+            <li>20 вопросов брифа, без которых не запускается работа.</li>
+            <li>Стилевая карта: 6 базовых направлений и их триггеры.</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>35</strong>мин</div>
+      </div>
+      <div class="module">
+        <div class="num">02</div>
+        <div class="body">
+          <h4>Эргономика и планировка</h4>
+          <p>Делать планировку, в которой не приходится ходить боком и тянуться через полкомнаты.</p>
+          <ul class="keys">
+            <li>Минимальные проходы и зоны: кухня, санузел, спальня, гардероб.</li>
+            <li>Сценарии: будни / гости / праздники / дети / уборка.</li>
+            <li>Зоны хранения: 1.5 м³ хранения на жильца — где их взять.</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>45</strong>мин</div>
+      </div>
+      <div class="module">
+        <div class="num">03</div>
+        <div class="body">
+          <h4>Цвет, свет, материалы</h4>
+          <p>Собирать палитру и материалы так, чтобы они работали на образ жизни, а не на «нравится».</p>
+          <ul class="keys">
+            <li>Правило 60/30/10: основа, контраст, акцент.</li>
+            <li>Тёплая и холодная палитра — что выбирать под образ жизни.</li>
+            <li>Свет: 3 уровня в каждой комнате (общий, рабочий, акцентный).</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>40</strong>мин</div>
+      </div>
+      <div class="module">
+        <div class="num">04</div>
+        <div class="body">
+          <h4>Мудборд и стилевая концепция</h4>
+          <p>Собирать мудборд так, чтобы клиент подписался под ним так же серьёзно, как под договором.</p>
+          <ul class="keys">
+            <li>Структура мудборда: ключевая фотография, палитра, материалы, мебель, свет, акценты.</li>
+            <li>Защита перед клиентом: 5 шагов и что делать, если клиент колеблется.</li>
+            <li>Записанные правки vs устные — почему всё в текст.</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>50</strong>мин</div>
+      </div>
+    </div>
+    <p class="muted" style="margin-top: 24px; font-size: 13px; text-align: right;">Продолжение программы — на следующей странице</p>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>05 · Программа · 1/2</span></footer>
+  </article>
+
+  <article class="page" id="p5b">
+    <header class="page-header"><span>Программа курса</span><span class="page-num">05 / 10</span></header>
+    <h2>Программа <em>(продолжение)</em></h2>
+    <div style="margin-top: 32px;">
+      <div class="module">
+        <div class="num">05</div>
+        <div class="body">
+          <h4>3D-инструменты для начинающих</h4>
+          <p>Сделать первую реалистичную 3D-визуализацию ключевого помещения.</p>
+          <ul class="keys">
+            <li>SketchUp: модель квартиры за 90 минут.</li>
+            <li>V-Ray: 3 стандартные настройки света для интерьера.</li>
+            <li>AI (Krea, Midjourney): когда уместно, когда лжёт.</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>60</strong>мин</div>
+      </div>
+      <div class="module">
+        <div class="num">06</div>
+        <div class="body">
+          <h4>Рабочая документация</h4>
+          <p>Подготовить чертежи так, чтобы подрядчик не задавал лишних вопросов.</p>
+          <ul class="keys">
+            <li>Состав комплекта: планы, развёртки, узлы, спецификации.</li>
+            <li>Маркировка: единая система для всех листов.</li>
+            <li>Скрытые работы: где нужны выноски, где — обязательно фото.</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>55</strong>мин</div>
+      </div>
+      <div class="module">
+        <div class="num">07</div>
+        <div class="body">
+          <h4>Авторский надзор</h4>
+          <p>Вести надзор так, чтобы проект на бумаге совпал с тем, что собирается на объекте.</p>
+          <ul class="keys">
+            <li>Точки контроля: 6 ключевых этапов стройки.</li>
+            <li>Журнал отклонений: формат, фотофиксация, ответственные.</li>
+            <li>Спорные ситуации: как фиксировать решения письменно.</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>45</strong>мин</div>
+      </div>
+      <div class="module">
+        <div class="num">08</div>
+        <div class="body">
+          <h4>Финальный проект и защита</h4>
+          <p>Защитить готовый проект перед комиссией студии и попасть в портфолио школы.</p>
+          <ul class="keys">
+            <li>Структура презентации: бриф → концепция → 3D → рабочка → надзор.</li>
+            <li>Тайминг 15 минут: что обязательно, что в запас.</li>
+            <li>Вопросы комиссии: 10 типовых и тренировочные ответы.</li>
+          </ul>
+        </div>
+        <div class="dur"><strong>90</strong>мин</div>
+      </div>
+    </div>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>05 · Программа · 2/2</span></footer>
+  </article>
+
+  <article class="page" id="p6">
+    <header class="page-header"><span>Формат обучения</span><span class="page-num">06 / 10</span></header>
+    <h2>Как устроено <em>обучение</em></h2>
+    <p class="lead">4 онлайн-урока + воркшоп еженедельно, чат когорты в Telegram, ревью домашек</p>
+    <h3 style="margin-top: 36px;">Что происходит на неделе</h3>
+    <ol class="fancy">
+      <li><strong>Понедельник.</strong> Открывается новый модуль: записанное видео + материалы + чек-лист.</li>
+      <li><strong>Среда.</strong> Живой воркшоп в Telegram-канале (видео-эфир с разбором ваших промежуточных работ).</li>
+      <li><strong>Четверг–суббота.</strong> Делаете домашку. В чате когорты можно обсуждать решения.</li>
+      <li><strong>Воскресенье.</strong> Дедлайн ДЗ. Ревью от куратора приходит в течение 72 часов.</li>
+    </ol>
+    <h3 style="margin-top: 36px;">Инструменты обучения</h3>
+    <ul class="checks">
+      <li>Telegram-канал школы — анонсы, ссылки, обратная связь.</li>
+      <li>Telegram-бот — выдаёт уроки и принимает домашки.</li>
+      <li>Закрытый чат когорты — общение со студентами и куратором.</li>
+      <li>Sketchup + V-Ray, Figma, Midjourney/Krea — устанавливаются бесплатно.</li>
+      <li>Доступ к шаблонам и базе референсов студии — навсегда.</li>
+    </ul>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>06 · Формат</span></footer>
+  </article>
+
+  <article class="page" id="p7">
+    <header class="page-header"><span>Сроки и расписание</span><span class="page-num">07 / 10</span></header>
+    <h2>8 недель · <em>7 часов</em><br>видео и практики</h2>
+    <p class="lead">Темп: 1 модуль в неделю. Если хотите быстрее — все модули открываются после оплаты, проходите в своём темпе. Если медленнее — куратор подстраивает дедлайны.</p>
+    <h3 style="margin-top: 36px;">Расписание потока</h3>
+    <div class="timeline">
+      <div class="week"><div class="w">Неделя 1</div><div class="t">Стиль и образ жизни клиента</div></div>
+      <div class="week"><div class="w">Неделя 2</div><div class="t">Эргономика и планировка</div></div>
+      <div class="week"><div class="w">Неделя 3</div><div class="t">Цвет, свет, материалы</div></div>
+      <div class="week"><div class="w">Неделя 4</div><div class="t">Мудборд и стилевая концепция</div></div>
+      <div class="week"><div class="w">Неделя 5</div><div class="t">3D-инструменты для начинающих</div></div>
+      <div class="week"><div class="w">Неделя 6</div><div class="t">Рабочая документация</div></div>
+      <div class="week"><div class="w">Неделя 7</div><div class="t">Авторский надзор</div></div>
+      <div class="week"><div class="w">Неделя 8</div><div class="t">Финальный проект и защита</div></div>
+    </div>
+    <h3 style="margin-top: 48px;">Время в неделю, которое нужно выделять</h3>
+    <ul class="warns">
+      <li>~1 час — просмотр видео-урока.</li>
+      <li>~30 минут — живой воркшоп в среду.</li>
+      <li>~6–8 часов — практика и домашка.</li>
+      <li>~30 минут — чтение ревью и ответы куратора.</li>
+    </ul>
+    <p class="muted" style="margin-top: 28px;">Итого 8–10 часов в неделю. Если получается выделять 15+ часов — быстрее закроете финальный проект.</p>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>07 · Сроки</span></footer>
+  </article>
+
+  <article class="page" id="p8">
+    <header class="page-header"><span>Стоимость</span><span class="page-num">08 / 10</span></header>
+    <h2>Один <em>прозрачный тариф</em></h2>
+    <p class="lead">Никаких «скидок только сегодня», искусственного дефицита и манипуляций. Цена одна, она зафиксирована, оплата — на ваш выбор полностью или поэтапно.</p>
+    <div class="price-card">
+      <div class="price">от 39 000 ₽ за поток</div>
+      <div class="meta">за весь курс · можно разбить на 2 платежа · возврат 7 дней без вопросов</div>
+      <div class="features">
+        <div>8 модулей с домашними заданиями</div>
+        <div>Ревью каждой домашки куратором за 72 часа</div>
+        <div>Закрытый чат когорты в Telegram</div>
+        <div>Финальная защита перед комиссией студии</div>
+        <div>Доступ к материалам навсегда</div>
+        <div>Шанс на стажировку в Atelier</div>
+        <div>Шаблоны брифа, договора, КП</div>
+        <div>База референсов и поставщиков</div>
+      </div>
+    </div>
+    <h3 style="margin-top: 32px;">Что НЕ входит и оговаривается отдельно</h3>
+    <ul class="warns">
+      <li>Платные подписки на сторонние сервисы (Midjourney, V-Ray pro). У нас бесплатные альтернативы и студенческие лицензии.</li>
+      <li>Индивидуальные консультации сверх программы — оплачиваются отдельно.</li>
+      <li>Программа Designer Pro для практикующих — отдельный курс с отдельной ценой.</li>
+    </ul>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>08 · Стоимость</span></footer>
+  </article>
+
+  <article class="page" id="p9">
+    <header class="page-header"><span>Финальная защита</span><span class="page-num">09 / 10</span></header>
+    <h2>Защита проекта <em>перед комиссией</em></h2>
+    <p class="lead">Финал курса — не «сертификат на скачивание», а защита готового проекта перед главным дизайнером студии и приглашёнными гостями. По итогам — рекомендация для портфолио и приглашение на стажировку (для лучших).</p>
+    <h3 style="margin-top: 36px;">Как проходит защита</h3>
+    <ol class="fancy">
+      <li><strong>15 минут — ваша презентация.</strong> Бриф → концепция → 3D → рабочка → надзор. Структура жёсткая, тайминг тренируется на курсе.</li>
+      <li><strong>10 минут — Q&A.</strong> Комиссия задаёт 5–7 вопросов: проверяет логику ваших решений и готовность к клиентам.</li>
+      <li><strong>Письменное ревью.</strong> В течение 5 рабочих дней получаете подробный разбор: куда расти, какие проекты брать дальше.</li>
+      <li><strong>Лучшие — приглашение в студию.</strong> Стажировка 3 месяца с реальными коммерческими проектами.</li>
+    </ol>
+    <div class="pull-quote">«Студия каждые 3 месяца берёт на стажировку 1–2 выпускников с лучшими финальными проектами. Критерии прозрачные и обсуждаются на курсе с самого начала.»</div>
+    <p class="muted" style="margin-top: 24px;">После стажировки — либо найм в студию, либо самостоятельная практика с поддержкой Atelier и доступом к нашему пулу клиентов.</p>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>09 · Защита</span></footer>
+  </article>
+
+  <article class="page" id="p10">
+    <header class="page-header"><span>Дальше</span><span class="page-num">10 / 10</span></header>
+    <h2>Что <em>сделать сейчас</em></h2>
+    <p class="lead">Бот школы соберёт мини-бриф (5 вопросов), пришлёт бесплатный мини-урок и подберёт подходящий тариф. После принятия решения — оплата по этапам и старт обучения.</p>
+    <h3 style="margin-top: 36px;">Простая последовательность</h3>
+    <ol class="fancy">
+      <li>Открыть Telegram-бота школы и пройти мини-бриф (5 минут).</li>
+      <li>Получить бесплатный мини-урок и выполнить задание (30 минут).</li>
+      <li>Запросить 15-минутный созвон с куратором — обсудить ваши цели и сомнения.</li>
+      <li>Принять решение по тарифу. Оплатить — войти в когорту.</li>
+      <li>На следующий день начать первый модуль.</li>
+    </ol>
+    <div class="cta-end">
+      <h3>Готовы начать?</h3>
+      <p>Бот школы открывается одной ссылкой — там же можно задать любой вопрос и поговорить с куратором.</p>
+      <a href="https://t.me/desind_school_vtg_bot">Открыть бота школы</a>
+    </div>
+    <p class="muted" style="margin-top: 28px; text-align: center; font-size: 13px;">
+      Виталий Захаренко · главный дизайнер<br>
+      <strong>Atelier Krasnodar · School</strong>
+    </p>
+    <footer class="page-footer"><span>Atelier Krasnodar · School</span><span>10 · Конец</span></footer>
+  </article>
+</body>
+</html>
